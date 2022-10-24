@@ -58,4 +58,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function Tiendas(){
+        return $this->belongsToMany(Tienda::class,'tienda_user','user_id','tienda_id');
+    }
 }

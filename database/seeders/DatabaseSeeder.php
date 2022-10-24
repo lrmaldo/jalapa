@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Team;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -14,5 +17,18 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // User::factory(10)->create();
+        DB::transaction(function ()  {
+            return tap(User::create([
+                'name' => 'admin',
+                'email' =>'lrmaldo@gmail.com',
+                'password' => Hash::make('admin'),
+            ]), function (User $user) {
+                $user->ownedTeams()->save(Team::forceCreate([
+                  'user_id' => $user->id,
+                  'name' => "Equipo RMS",
+                  'personal_team' => true,
+                ]));
+            });
+        });
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\TiendaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +27,14 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    
 });
+
+
+Route::get('/t/{id}',[TiendaController::class,'vista_frontend'])->name('fronted.tienda');
+
+Route::get('/cart',[CarritoController::class,'cartList'])->name('carrito.lista');
+Route::post('/cart',[CarritoController::class,'addToCart'])->name('carrito.store');
+
+
