@@ -5,15 +5,7 @@
         {{-- Nothing in the world is as soft and yielding as water. --}}
 
         <div class="relative max-w-3xl px-4 mx-auto mt-10 sm:px-6">
-            {{--  <form action="/" accept-charset="UTF-8" method="get"> --}}
-            {{--   <input value="all" autocomplete="off" type="hidden" name="price"
-                    id="price" />
-                <input value="all" autocomplete="off" type="hidden" name="type"
-                    id="type" />
-                <input value="any" autocomplete="off" type="hidden" name="technology"
-                    id="technology" />
-                <input value="trending" autocomplete="off" type="hidden" name="order"
-                    id="order" /> --}}
+           
 
             <div class='relative w-full max-w-xl mx-auto bg-white rounded-full h-18 lg:max-w-none'>
                 <input placeholder="ejemplo Jalapa"
@@ -33,8 +25,7 @@
                     Buscar
                 </button>
             </div>
-            {{--  </form> --}}
-            {{--  {{ $tiendas }} --}}
+          
         </div>
         <div class="max-w-3xl px-4 pt-8 mx-auto lg:max-w-screen-xl sm:pt-10 sm:px-6 lg:px-8">
             <div class='flex flex-row flex-wrap items-center justify-between'>
@@ -81,7 +72,7 @@
 
 
 
-        @forelse ($tiendas as $tienda)
+        @forelse ($productos as $producto)
             <div class='max-w-lg px-4 pt-12 mx-auto md:max-w-screen-2xl md:px-6 xl:px-8 2xl:px-12'>
                 <div data-controller='pagination lazy-loader'>
                     <div id="resources" class='grid gap-6 mx-auto md:grid-cols-2 lg:grid-cols-3 xl:gap-8 2xl:gap-12'>
@@ -92,7 +83,7 @@
                                 <div
                                     class="relative flex items-center justify-center flex-shrink-0 h-full group animate-pulse">
                                     <img class="opacity-0 w-9/10 sm:w-10/12 lg:w-9/10 xl:w-10/12 h-auto rounded-lg shadow-md mx-auto object-cover object-left-top transition ease-in-out duration-300"
-                                        alt="Banter" data-src="{{ asset($tienda->logo_url) }}"
+                                        alt="Banter" data-src="{{ asset($producto->imagen_url) }}"
                                         data-lazy-loader-target="entry" src="" />
                                     <div
                                         class='absolute inset-0 transition duration-200 bg-gray-900 opacity-0 rounded-2xl group-hover:opacity-60'>
@@ -105,7 +96,7 @@
                                         </div> --}}
                                         <div class='shadow-sm w-33 rounded-2xl'>
                                             <a class="w-full justify-center inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-2xl shadow-sm text-white transition duration-150 bg-cool-indigo-600 hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cool-indigo-500"
-                                                href="/t/{{ $tienda->id }}">Ver tienda</a>
+                                                href="/t/{{ $producto->tienda_id }}/producto/{{$producto->id}}">Ver</a>
                                         </div>
                                     </div>
                                 </div>
@@ -113,19 +104,19 @@
                             <div>
                                 <div class="flex flex-col justify-between flex-1 p-6">
                                     <div class="flex-1">
-                                        <a class="block group" href="/t/{{ $tienda->id }}">
+                                        <a class="block group" href="/t/{{ $producto->tienda_id }}/producto/{{$producto->id}}">
                                             <div class='flex items-center justify-between'>
                                                 <h3
                                                     class="flex items-center text-xl font-bold leading-7 text-gray-900 group-hover:text-cool-indigo-600">
-                                                    {{ $tienda->nombre }}
+                                                    {{ $producto->nombre }}
                                                 </h3>
                                                 <span
                                                     class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-bold font-display bg-cool-indigo-200 text-cool-indigo-800">
-                                                    {{ $tienda->categoria->nombre }}
+                                                    ${{ number_format($producto->precio,2) }}
                                                 </span>
                                             </div>
                                             <p class="mt-1 text-base font-medium leading-6 text-gray-500">
-                                                {{ $tienda->direccion }}
+                                                {{ $producto->descripcion }}
                                             </p>
 
                                         </a>
@@ -142,6 +133,7 @@
                 class="relative  text-center sm:px-6 max-w-md mx-auto mt-3 text-lg text-gray-900 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl ">
                 Sin resultados </h2>
         @endforelse
+        {{$productos->links()}}
 
 
 

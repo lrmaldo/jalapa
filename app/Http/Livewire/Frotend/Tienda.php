@@ -2,19 +2,37 @@
 
 namespace App\Http\Livewire\Frotend;
 
+use App\Models\Categoria_tienda;
+use App\Models\Producto;
 use Livewire\Component;
+use App\Models\Tienda as ModelTienda;
 
 class Tienda extends Component
 {
     public $id_tienda;
+    public $search, $select_categoria =null ,$sort = 'id', $direction ='desc';
     public function mount($id_tienda)
     {
         $this->id_tienda = $id_tienda;
     }
     public function render()
     {
-        $tienda = Tienda::find($this->id_tienda);
+        $categorias = Categoria_tienda::select('id','nombre')->where('tienda_id',$this->id_tienda)->get();
+        $catSelect = $this->select_categoria;
+        $tienda = ModelTienda::find($this->id_tienda);
+        $buscar = $this->search;
 
-        return view('livewire.frotend.tienda', compact('tienda'));
+        $productos = Producto::where(function($query)  use ($buscar){
+            $query->where('tienda_id',$this->id_tienda);
+            $query->orWhere('nombre','LIKE',"%{$buscar}%");
+
+            if(!is_null($this->select_categoria)){
+                $query->where('categoria_id',$this->select_categoria);
+            }
+        })
+        ->orderBy($this->sort,$this->direction)
+        ->paginate(15);
+
+        return view('livewire.frotend.tienda', compact('tienda','productos','categorias','catSelect'));
     }
 }

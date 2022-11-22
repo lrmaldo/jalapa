@@ -14,6 +14,7 @@ class Tienda extends Model
      * @var string[]
      */
     protected $fillable = [
+        'id',
         'nombre', 'direccion', 'latitude',
         'longitude', 'logo_url',
         'facebook_url',
