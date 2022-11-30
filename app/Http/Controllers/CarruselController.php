@@ -15,7 +15,7 @@ class CarruselController extends Controller
      */
     public function index()
     {
-        //
+       return view('backend.banners.index');
     }
 
     /**

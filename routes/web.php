@@ -3,6 +3,7 @@
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\CarruselController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\TelefonoController;
 use App\Http\Controllers\TiendaController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,7 @@ Route::middleware([
     Route::resource('banners',CarruselController::class);
     Route::resource('giros',CategoriaController::class);
     Route::resource('hotspots',HotspotContoller::class);
+    Route::resource('telefonos',TelefonoController::class);
 
 
     

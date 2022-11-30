@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CarruselController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TiendaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('tiendas/all',[TiendaController::class,'datatable_tienda'])->name('api.tiendas');
+
+Route::get('telefonos/{id}',[TiendaController::class,'datatable_telefonos'])->name('api.telefonos');
+Route::get('giros/all',[CategoriaController::class,'datatable_categorias'])->name('api.giros');
+Route::get('banners/all',[CarruselController::class,'datatable_banners'])->name('api.banners');

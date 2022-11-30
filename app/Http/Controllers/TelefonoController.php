@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Telefono;
 use App\Http\Requests\StoreTelefonoRequest;
 use App\Http\Requests\UpdateTelefonoRequest;
+use App\Models\Tienda;
+use Illuminate\Http\Response;
 
 class TelefonoController extends Controller
 {
@@ -15,7 +17,7 @@ class TelefonoController extends Controller
      */
     public function index()
     {
-        //
+       $tienda = Tienda::find($id);
     }
 
     /**
@@ -36,7 +38,8 @@ class TelefonoController extends Controller
      */
     public function store(StoreTelefonoRequest $request)
     {
-        //
+       Telefono::create($request->all());
+       return response()->json(['message' => 'Telefono Creado Correctamente'],200); 
     }
 
     /**
@@ -58,7 +61,7 @@ class TelefonoController extends Controller
      */
     public function edit(Telefono $telefono)
     {
-        //
+        return response()->json($telefono);
     }
 
     /**
@@ -70,7 +73,8 @@ class TelefonoController extends Controller
      */
     public function update(UpdateTelefonoRequest $request, Telefono $telefono)
     {
-        //
+       $telefono->update($request->all());
+       return response()->json(['message' =>"Teléfono Actualizado Correctamente"]);
     }
 
     /**
@@ -81,6 +85,7 @@ class TelefonoController extends Controller
      */
     public function destroy(Telefono $telefono)
     {
-        //
+       $telefono->delete();
+       return response()->json(['message' =>"Telefono Eliminado Correctamente"]);
     }
 }

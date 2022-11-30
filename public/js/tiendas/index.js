@@ -31,6 +31,7 @@ $(document).ready(function () {
                 /* {data: 'updated_at'} */
             ],
             language: lenguaje,
+            order: [[0, "desc"]],
         })
         .columns.adjust()
         .responsive.recalc();

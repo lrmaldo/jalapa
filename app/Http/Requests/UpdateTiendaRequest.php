@@ -13,7 +13,7 @@ class UpdateTiendaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class UpdateTiendaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'categoria_id'=>['required'],
+            'tipo_tienda'=>['required'],
         ];
+    }
+    public function messages()
+    {
+        return [
+            'categoria_id.required'=>"Categorias es requerido",
+            'tipo_tienda.required'=>"Tipo de tienda es requerido",
+        ] ;    
     }
 }

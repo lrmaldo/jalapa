@@ -13,7 +13,7 @@ class StoreTelefonoRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class StoreTelefonoRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tipo'=>'required',
+             'telefono'=>'required|numeric|digits:10',
+            #'telefono' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
+            #'is_whatsapp'=>'required',
         ];
     }
 }
