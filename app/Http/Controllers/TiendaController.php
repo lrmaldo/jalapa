@@ -117,6 +117,17 @@ class TiendaController extends Controller
     public function update(UpdateTiendaRequest $request, Tienda $tienda)
     {
         $url_img= null;
+        $tienda->update([
+            'nombre'=> $request->nombre,
+            'direccion' => $request->direccion,
+            'latitude'=> $request->lat,
+            'longitude' =>$request->long,
+            //'logo_url'=>!empty($url_img)?"/storage/images/".$nameFile:null,
+            'facebook_url'=>$request->facebook_url,
+            'tipo_tienda'=>$request->tipo_tienda,
+            'categoria_id' =>$request->categoria_id,
+            'is_active' =>$request->is_active,
+        ]);
       if($request->hasFile('logo_url')){
         $img = $request->file('logo_url');
 
@@ -133,19 +144,13 @@ class TiendaController extends Controller
         $nameFile = Str::uuid()->toString().".".$request->file('logo_url')->extension();
         ## $request->file('logo_url')->getClientOriginalName();
         $url_img = Storage::disk('public')->put('images/'.$nameFile,$img,'public');
+
+        $tienda->update([
+            'logo_url' => "/storage/images/".$nameFile
+        ]);
       }
         
-        $tienda->update([
-            'nombre'=> $request->nombre,
-            'direccion' => $request->direccion,
-            'latitude'=> $request->lat,
-            'longitude' =>$request->long,
-            'logo_url'=>!empty($url_img)?"/storage/images/".$nameFile:null,
-            'facebook_url'=>$request->facebook_url,
-            'tipo_tienda'=>$request->tipo_tienda,
-            'categoria_id' =>$request->categoria_id,
-            'is_active' =>$request->is_active,
-        ]);
+       
        // $request->session()->put('success',"tienda actualizada");
         return redirect()->route('tiendas.index')->with('message',"Tienda actualizada");
     }

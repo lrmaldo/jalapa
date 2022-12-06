@@ -72,11 +72,11 @@
 
 
 
-        @forelse ($productos as $producto)
+       
             <div class='max-w-lg px-4 pt-12 mx-auto md:max-w-screen-2xl md:px-6 xl:px-8 2xl:px-12'>
                 <div data-controller='pagination lazy-loader'>
                     <div id="resources" class='grid gap-6 mx-auto md:grid-cols-2 lg:grid-cols-3 xl:gap-8 2xl:gap-12'>
-
+                        @forelse ($productos as $producto)
                         <div>
                             <div
                                 class="flex flex-col w-full overflow-hidden bg-gray-100 rounded-2xl h-72 sm:h-80 md:h-72 lg:h-64 xl:h-80">
@@ -124,38 +124,22 @@
                                 </div>
                             </div>
                         </div>
+                        @empty
+
+                        <h2
+                            class="relative  text-center sm:px-6 max-w-md mx-auto mt-3 text-lg text-gray-900 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl ">
+                            Sin resultados </h2>
+                    @endforelse
                     </div>
+
                 </div>
             </div>
-        @empty
-
-            <h2
-                class="relative  text-center sm:px-6 max-w-md mx-auto mt-3 text-lg text-gray-900 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl ">
-                Sin resultados </h2>
-        @endforelse
+       
         {{$productos->links()}}
 
 
 
-        {{-- Next pagination --}}
-        {{--  <div id="pagination-button" class="flex justify-center mt-14">
-                    <button name="button" type="button"
-                        class="inline-flex items-center justify-center px-8 h-12 text-base font-medium text-cool-indigo-700 border border-transparent rounded-2xl bg-cool-indigo-100 hover:bg-cool-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-cool-indigo-500"
-                        target="_blank" data-action="click-&gt;pagination#loadMore" data-pagination-target="next"
-                        data-next-url="/?page=2" data-button-loader-target="button"
-                        data-controller="button-loader" data-button-loader-hidden-class="hidden">
-                        <svg class="hidden w-5 h-5 animate-spin text-cool-indigo-500"
-                            data-button-loader-target='loader' xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10"
-                                stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                            </path>
-                        </svg>
-                        <span data-button-loader-target='text'>Load more designs</span>
-                    </button>
-                </div> --}}
+      
 
     </div>
 </div>

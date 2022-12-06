@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\CarruselController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TelefonoController;
 use App\Http\Controllers\TiendaController;
 use Illuminate\Support\Facades\Route;
+use  App\Models\Carrusel;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +21,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $carruseles = Carrusel::where('is_active',true)->get()->shuffle();
+    return view('welcome',compact('carruseles'));
 });
 
 Route::get('/t/{id}',[TiendaController::class,'vista_frontend'])->name('fronted.tienda');
 Route::get('/t/{id_tienda}/producto/{id}',[TiendaController::class,'vista_producto'])->name('fronted.tienda.producto');
 
+
+/* blogs */
+
+Route::get('/blogs',[BlogController::class,'vista_todos'])->name('fronted.blogs');
+Route::get('blogs/{id}',[BlogController::class,'vista_frontend'])->name('fronted.blog.show');
 
 
 Route::middleware([
@@ -41,6 +49,7 @@ Route::middleware([
     Route::resource('giros',CategoriaController::class);
     Route::resource('hotspots',HotspotContoller::class);
     Route::resource('telefonos',TelefonoController::class);
+    Route::resource('blog',BlogController::class);
 
 
     

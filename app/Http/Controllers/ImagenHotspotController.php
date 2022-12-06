@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hotspot;
-use App\Http\Requests\StoreHotspotRequest;
-use App\Http\Requests\UpdateHotspotRequest;
+use App\Models\ImagenHotspot;
+use App\Http\Requests\StoreImagenHotspotRequest;
+use App\Http\Requests\UpdateImagenHotspotRequest;
 
-class HotspotController extends Controller
+class ImagenHotspotController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class HotspotController extends Controller
      */
     public function index()
     {
-       return view('backend.hotspot.index');
+        //
     }
 
     /**
@@ -31,10 +31,10 @@ class HotspotController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreHotspotRequest  $request
+     * @param  \App\Http\Requests\StoreImagenHotspotRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreHotspotRequest $request)
+    public function store(StoreImagenHotspotRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class HotspotController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Hotspot  $hotspot
+     * @param  \App\Models\ImagenHotspot  $imagenHotspot
      * @return \Illuminate\Http\Response
      */
-    public function show(Hotspot $hotspot)
+    public function show(ImagenHotspot $imagenHotspot)
     {
         //
     }
@@ -53,10 +53,10 @@ class HotspotController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Hotspot  $hotspot
+     * @param  \App\Models\ImagenHotspot  $imagenHotspot
      * @return \Illuminate\Http\Response
      */
-    public function edit(Hotspot $hotspot)
+    public function edit(ImagenHotspot $imagenHotspot)
     {
         //
     }
@@ -64,11 +64,11 @@ class HotspotController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateHotspotRequest  $request
-     * @param  \App\Models\Hotspot  $hotspot
+     * @param  \App\Http\Requests\UpdateImagenHotspotRequest  $request
+     * @param  \App\Models\ImagenHotspot  $imagenHotspot
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateHotspotRequest $request, Hotspot $hotspot)
+    public function update(UpdateImagenHotspotRequest $request, ImagenHotspot $imagenHotspot)
     {
         //
     }
@@ -76,10 +76,10 @@ class HotspotController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Hotspot  $hotspot
+     * @param  \App\Models\ImagenHotspot  $imagenHotspot
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Hotspot $hotspot)
+    public function destroy(ImagenHotspot $imagenHotspot)
     {
         //
     }

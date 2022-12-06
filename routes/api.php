@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CarruselController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TiendaController;
@@ -26,3 +27,4 @@ Route::get('tiendas/all',[TiendaController::class,'datatable_tienda'])->name('ap
 Route::get('telefonos/{id}',[TiendaController::class,'datatable_telefonos'])->name('api.telefonos');
 Route::get('giros/all',[CategoriaController::class,'datatable_categorias'])->name('api.giros');
 Route::get('banners/all',[CarruselController::class,'datatable_banners'])->name('api.banners');
+Route::get('blog/all',[BlogController::class,'datatable_blogs'])->name('api.blogs');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHotspotsTable extends Migration
+class CreateZonasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateHotspotsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hotspots', function (Blueprint $table) {
+        Schema::create('zonas', function (Blueprint $table) {
             $table->id();
-            $table->string('router')->nullable();
+            $table->string('nombre')->nullable();
+            $table->foreignId('user_id')->nullable()
+            ->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateHotspotsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotspots');
+        Schema::dropIfExists('zonas');
     }
 }
