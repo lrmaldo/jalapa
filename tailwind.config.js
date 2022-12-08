@@ -1,5 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
-/* const colors = require("tailwindcss/colors"); */
+const colors = require("tailwindcss/colors");
 
 module.exports = {
     content: [
@@ -7,7 +7,8 @@ module.exports = {
         "./vendor/laravel/jetstream/**/*.blade.php",
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
-        './src/**/*.{html,js}', './node_modules/tw-elements/dist/js/**/*.js'
+        "./src/**/*.{html,js}",
+        "./node_modules/tw-elements/dist/js/**/*.js",
     ],
 
     theme: {
@@ -15,7 +16,69 @@ module.exports = {
             fontFamily: {
                 sans: ["Nunito", ...defaultTheme.fontFamily.sans],
             },
-            backgroundColor: ['active'],
+            backgroundColor: ["active"],
+            colors: {
+                rojo: {
+                    50: "#fff1f1",
+                    100: "#ffe0e0",
+                    200: "#ffc7c7",
+                    300: "#ff9f9f",
+                    400: "#ff6869",
+                    500: "#fa393a",
+                    600: "#e92324",
+                    700: "#c31213",
+                    800: "#a11314",
+                    900: "#861617",
+                },
+                amarillo: {
+                    50: "#fffbeb",
+                    100: "#fef4c7",
+                    200: "#fde88a",
+                    300: "#fcd64d",
+                    400: "#fbc01c",
+                    500: "#f5a10b",
+                    600: "#d97a06",
+                    700: "#b45509",
+                    800: "#92420e",
+                    900: "#78370f",
+                },
+                naranja: {
+                    50: "#fef8ee",
+                    100: "#fdeed7",
+                    200: "#fadaae",
+                    300: "#f7be7a",
+                    400: "#f29945",
+                    500: "#ee791c",
+                    600: "#e06216",
+                    700: "#b94a15",
+                    800: "#943b18",
+                    900: "#773217",
+                },
+                gris: {
+                    50: "#f7f7f7",
+                    100: "#e3e3e3",
+                    200: "#c8c8c8",
+                    300: "#a4a4a4",
+                    400: "#818181",
+                    500: "#666666",
+                    600: "#4d4d4d",
+                    700: "#434343",
+                    800: "#383838",
+                    900: "#313131",
+                },
+                verde: {
+                    50: "#f0fdf4",
+                    100: "#dcfce7",
+                    200: "#bbf7d0",
+                    300: "#86efac",
+                    400: "#4ade80",
+                    500: "#22c55e",
+                    600: "#16a34a",
+                    700: "#15803d",
+                    800: "#166534",
+                    900: "#14532d",
+                },
+            },
         },
         colors: {
             transparent: "transparent",
@@ -286,62 +349,12 @@ module.exports = {
                 800: "#9f1239",
                 900: "#881337",
             },
-            rojo: {
-                50: '#fff1f1',
-                100: '#ffe0e0',
-                200: '#ffc7c7',
-                300: '#ff9f9f',
-                400: '#ff6869',
-                500: '#fa393a',
-                600: '#e92324',
-                700: '#c31213',
-                800: '#a11314',
-                900: '#861617',
-            },
-            amarillo:{
-                50: '#fffbeb',
-                100: '#fef4c7',
-                200: '#fde88a',
-                300: '#fcd64d',
-                400: '#fbc01c',
-                500: '#f5a10b',
-                600: '#d97a06',
-                700: '#b45509',
-                800: '#92420e',
-                900: '#78370f',
-            },
-            naranja:{
-                 50: '#fef8ee',
-                100: '#fdeed7',
-                200: '#fadaae',
-                300: '#f7be7a',
-                400: '#f29945',
-                500: '#ee791c',
-                600: '#e06216',
-                700: '#b94a15',
-                800: '#943b18',
-                900: '#773217',
-            },
-            gris: {
-                50: '#f7f7f7',
-                100: '#e3e3e3',
-                200: '#c8c8c8',
-                300: '#a4a4a4',
-                400: '#818181',
-                500: '#666666',
-                600: '#4d4d4d',
-                700: '#434343',
-                800: '#383838',
-                900: '#313131',
-            },
-
-            
         },
     },
 
     plugins: [
         require("@tailwindcss/forms"),
         require("@tailwindcss/typography"),
-        require('tw-elements/dist/plugin')
+        require("tw-elements/dist/plugin"),
     ],
 };

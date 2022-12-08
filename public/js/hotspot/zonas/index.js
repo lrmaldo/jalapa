@@ -1,8 +1,14 @@
 let tabla;
 
 $(document).ready(function () {
-    tabla = $("#tabla_giros")
+    tabla = $("#tabla_zonas")
         .DataTable({
+            columnDefs: [
+                {
+                    targets: [0,-1],
+                    className: 'dt-body-center'
+                }
+              ],
             responsive: true,
             processing: true,
             serverSide: true,
@@ -18,7 +24,8 @@ $(document).ready(function () {
             columns: [
                 { data: "id" },
                 { data: "nombre" },
-                { data: "is_active" },
+                { data: "preview" },
+                
 
                 {
                     data: "action",
@@ -35,81 +42,79 @@ $(document).ready(function () {
         .responsive.recalc();
 });
 
-const agregarGiro = () => {
+agregarZona = () =>{
     Swal.fire({
-        title: "Agregar Giro",
-        html: ` <div class="">
-        <p>Agrega Giro (Categoria)</p>
-        </div>
+        title: "Agregar Zona",
+        html: `
         <div class="">
         <div class="md:w-full">
         <!-- nombre -->
         <label for="nombre">Nombre</label>
         <input class="rounded-md shadow-sm mt-1 w-full" type="text" 
-          id="nombre" name="nombre" value="" placeholder="Ejemplo. Restaurantes">
+          id="nombre" name="nombre" value="" placeholder="Ejemplo. Hotspot Centro">
         </div>
-        </div>
-        <div class="md:w-full mt-1">
-        <label for="is_whatsapp">¿Activar?</label>
-        <input class="rounded-md y-2" type="checkbox" value="1" id="is_active" name="is_active">
         </div>
         `,
         showCancelButton: true,
-        confirmButtonText: "Agregar",
+        confirmButtonText: "Guardar Zona",
         cancelButtonText: "Cancelar",
         showCloseButton: true,
-        showLoaderOnConfirm: true,
+        showConfirmButton: true,
+        confirmButtonColor: "#00a8ff",
 
-        preConfirm: () => {
-            let _url_store = "/giros";
-            let nombre = document.querySelector("#nombre");
-            let is_active = document.querySelector("#is_active");
-            /* validaciones */
-            if (nombre.value == "") {
-                Swal.showValidationMessage("El nombre es requerido");
+        showLoaderOnConfirm: true,
+        preConfirm:()=>{
+            //let file = $("#imagen_url")[0].files[0];
+            let _url_store =  "/zonas"
+            let nombre = document.getElementById("nombre")
+            if(document.getElementById('nombre').value == ""){
+                Swal.showValidationMessage("Es requerido un nombre");
+                return false;
             }
 
-            return fetch(_url_store, {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                        "content"
-                    ),
+            
+            return fetch(_url_store,{
+                method:'POST',
+                headers:{
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     nombre: nombre.value,
-                    is_active: is_active.checked,
+                    //is_active: is_active.checked,
                 }),
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        console.log(response);
-                        throw new Error(response.statusText);
-                    }
-                    return response.json();
-                })
-                .catch((error) => {
-                    console.log(error);
-                    Swal.showValidationMessage(`Request failed: ${error}`);
-                });
-        },
-    }).then((result) => {
-        if (result.value) {
+
+            }).then((response)=>{
+                if(!response.ok){
+                    return Swal.showValidationMessage(
+                        `${response.statusText}`
+                    );
+                }
+                return response.json();
+            });
+
+        }
+    }).then((result)=>{
+        if(result.value){
             Swal.fire({
-                title: result.value.message,
-                text: "",
                 icon: "success",
+                title: result.value.message,
                 showConfirmButton: false,
                 timer: 1500,
-            });
+
+            })
             tabla.ajax.reload();
         }
-    });
-};
+    }).catch((error)=>{
+        console.log(error);
+        Swal.showValidationMessage(`Request failed: ${error}`);
+        return false;
+    })
 
-const edit_giro = (id) => {
-    const _url_edit = `/giros/${id}/edit`;
+}
+
+edit_zona =(id)=>{
+    const _url_edit = `/zonas/${id}/edit`;
 
     let loading = Swal.fire({
         title: "Cargando",
@@ -136,10 +141,8 @@ const edit_giro = (id) => {
         })
         .then((data) => {
             Swal.fire({
-                title: "Editar Giro",
-                html: ` <div class="">
-            <p>Editar Giro (Categoria)</p>
-            </div>
+                title: "Editar Zona",
+                html: ` 
             <div class="">
             <div class="md:w-full">
             <!-- telefono -->
@@ -147,25 +150,20 @@ const edit_giro = (id) => {
             <input class="rounded-md shadow-sm mt-1 w-full" type="text" 
               id="nombre" name="nombre" value="${
                   data.nombre
-              }" placeholder="Ejemplo. Restaurantes">
+              }" placeholder="Ejemplo. Hostpot Centro">
             </div>
-            </div>
-            <div class="md:w-full mt-1">
-            <label for="is_whatsapp">¿Activar?</label>
-            <input class="rounded-md y-2" type="checkbox" value="1" id="is_active" name="is_active"
-            ${data.is_active ? "checked" : ""}>
             </div>
             `,
                 showCancelButton: true,
-                confirmButtonText: "Agregar",
+                confirmButtonText: "Guardar",
                 cancelButtonText: "Cancelar",
                 showCloseButton: true,
                 showLoaderOnConfirm: true,
                 preConfirm: () => {
                     /* validacion */
-                    let _url_update = `/giros/${id}`;
+                    let _url_update = `/zonas/${id}`;
                     let nombre = document.querySelector("#nombre");
-                    let is_active = document.querySelector("#is_active");
+        
                     /* validaciones */
                     if (nombre.value == "") {
                         Swal.showValidationMessage("El nombre es requerido");
@@ -180,7 +178,7 @@ const edit_giro = (id) => {
                         },
                         body: JSON.stringify({
                             nombre: nombre.value,
-                            is_active: is_active.checked,
+                           
                         }),
                     })
                         .then((response) => {
@@ -210,23 +208,25 @@ const edit_giro = (id) => {
                 }
             });
         });
-};
+
+}
 
 
-const eliminar_giro = (id) =>{
-    const _url_delete = `/giros/${id}`
+
+eliminar_zona = (id) => {
     Swal.fire({
-        title: "¿Estás seguro?",
-        text: "¡No podrás revertir esto!",
+        title: "¿Estas seguro en eliminar?",
+        text: "Una vez que lo elimines no hay vuelta atrás",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, eliminarlo!",
+        confirmButtonText: "Sí, borrar!",
         cancelButtonText: "Cancelar",
+        showCloseButton: true,
         showLoaderOnConfirm: true,
         preConfirm: () => {
-            return fetch(_url_delete, {
+            return fetch("/zonas/" + id, {
                 method: "DELETE",
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
@@ -234,28 +234,31 @@ const eliminar_giro = (id) =>{
                     ),
                     "Content-Type": "application/json",
                 },
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        console.log(response);
-                        throw new Error(response.statusText);
-                    }
+            }).then((response) => {
+                if (response.ok) {
                     return response.json();
-                })
-                .catch((error) => {
-                    console.log(error);
-                    Swal.showValidationMessage(`Request failed: ${error}`);
-                });
-        },
-    }).then((result) => {
-        if (result.value) {
-            Swal.fire({
-                icon: "success",
-                title: result.value.message,
-                showConfirmButton: false,
-                timer: 1500,
+                }
+                throw new Error(response.statusText);
             });
-            tabla.ajax.reload();
-        }
-    });
-}
+        },
+    })
+        .then((result) => {
+            if (result.value) {
+                Swal.fire({
+                    title: result.value.message,
+                    text: "",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                tabla.ajax.reload();
+            }
+        })
+        .catch((error) => {
+            Swal.fire(
+                "Ocurrio un problema, no se ha podido eliminar la zona correctamente",
+                error,
+                "error"
+            );
+        });
+};

@@ -4,10 +4,14 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\CarruselController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\HotspotController;
+use App\Http\Controllers\ImagenHotspotController;
 use App\Http\Controllers\TelefonoController;
 use App\Http\Controllers\TiendaController;
+use App\Http\Controllers\ZonaController;
+use App\Models\Carrusel;
 use Illuminate\Support\Facades\Route;
-use  App\Models\Carrusel;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +26,7 @@ use  App\Models\Carrusel;
 
 Route::get('/', function () {
     $carruseles = Carrusel::where('is_active',true)->get()->shuffle();
+   # dd($carruseles);
     return view('welcome',compact('carruseles'));
 });
 
@@ -47,9 +52,11 @@ Route::middleware([
     Route::resource('tiendas',TiendaController::class);
     Route::resource('banners',CarruselController::class);
     Route::resource('giros',CategoriaController::class);
-    Route::resource('hotspots',HotspotContoller::class);
+    Route::resource('hotspots',HotspotController::class);
     Route::resource('telefonos',TelefonoController::class);
     Route::resource('blog',BlogController::class);
+    Route::resource('zonas',ZonaController::class);
+    Route::resource('imagen-hotspot',ImagenHotspotController::class);
 
 
     

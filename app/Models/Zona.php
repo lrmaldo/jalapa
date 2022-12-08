@@ -14,7 +14,7 @@ class Zona extends Model
     ];
 
     public function imagenes(){
-        return $this->belongsToMany(ImagenHotspot::class,'zona_imagen')->withTimestamps();;
+        return $this->belongsToMany(ImagenHotspot::class,'zona_imagen','zona_id','imagen_id');
     }
 
 }

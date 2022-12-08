@@ -225,15 +225,20 @@
 
 
                         <main class="px-4 mx-auto mt-10 max-w-7xl sm:mt-14">
-                            {{-- carrusel --}}
+                            
                             <div id="carouselExampleCrossfade" class="carousel slide carousel-fade relative"
                                 data-bs-ride="carousel">
                                 <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
-                                    @foreach ($carruseles as $key => $item)
-                                    <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="{{$key}}"
-                                    class="active" aria-current="true" aria-label="Slide {{$key+1}}"></button>
+                                    <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="0"
+                                    class="active"
+                                    aria-label="Slide 1"></button>
+                                    @forelse ($carruseles as $key => $item)
 
-                                    @endforeach
+                                    <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="{{$key+1}}"
+                                    {{-- class="active" --}} aria-current="true" aria-label="Slide {{$key+1}}"></button>
+                                    @empty
+
+                                    @endforelse
                                     
                                     {{-- <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="1"
                                         aria-label="Slide 2"></button>
@@ -245,13 +250,14 @@
                                         <img src="{{asset('img/jaca_fondo.jfif')}}" class="block w-full"
                                         alt="Wild Landscape" />
                                     </div>
-                                    @foreach ($carruseles as $key => $item)
+                                    @forelse ($carruseles as $key => $item)
                                     <div class="carousel-item float-left w-full">
                                         <img src="{{asset($item->imagen_url)}}" class="block w-full"
-                                            alt="Img-{{$carrusel->id}}" />
+                                            alt="Img-{{$item->id}}" />
                                     </div>
-                                        
-                                    @endforeach
+                                    @empty
+
+                                    @endforelse
 
                                     {{-- <div class="carousel-item float-left w-full">
                                         <img src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp" class="block w-full"
