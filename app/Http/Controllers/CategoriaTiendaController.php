@@ -36,7 +36,8 @@ class CategoriaTiendaController extends Controller
      */
     public function store(StoreCategoria_tiendaRequest $request)
     {
-        //
+        Categoria_tienda::create($request->toArray());
+        return response()->json(['message'=>'Categoria creado Correctamente']);
     }
 
     /**
@@ -56,9 +57,11 @@ class CategoriaTiendaController extends Controller
      * @param  \App\Models\Categoria_tienda  $categoria_tienda
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria_tienda $categoria_tienda)
+    public function edit($categoria_tienda)
     {
-        //
+        $categoria_tienda = Categoria_tienda::find($categoria_tienda);
+        //dd($categoria_tienda);
+       return response()->json($categoria_tienda);
     }
 
     /**
@@ -68,9 +71,11 @@ class CategoriaTiendaController extends Controller
      * @param  \App\Models\Categoria_tienda  $categoria_tienda
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoria_tiendaRequest $request, Categoria_tienda $categoria_tienda)
+    public function update(UpdateCategoria_tiendaRequest $request, $categoria_tienda)
     {
-        //
+       $categoria_tienda = Categoria_tienda::find($categoria_tienda);
+       $categoria_tienda->update($request->toArray());
+       return response()->json(['message' => 'Categoria de tienda actualizado correctamente'],200);
     }
 
     /**
@@ -79,8 +84,27 @@ class CategoriaTiendaController extends Controller
      * @param  \App\Models\Categoria_tienda  $categoria_tienda
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria_tienda $categoria_tienda)
+    public function destroy( $categoria_tienda)
     {
-        //
+       Categoria_tienda::destroy($categoria_tienda);
+        #$categoria_tienda->delete();
+       return response()->json(['message'=>'Categoria de tienda eliminado correctamente']);
+       # return $categoria_tienda;
+    }
+
+
+    public function datatable_tienda_categorias($id){
+        $categorias = Categoria_tienda::where('tienda_id', $id)->get();
+        return datatables()->of($categorias)
+        ->addColumn('action',function($data){
+
+            
+            $btn = '<a href="javascript:void(0);" onclick="edit_categoria(\''.$data->id.'\')" class="text-indigo-500 hover:text-indigo-700 mb-2 mr-2" >Editar </a>';
+            $btn .= '<a href="javascript:void(0);" class="text-red-500 hover:text-red-900 mb-2 mr-2" onclick="eliminar_categoria(\'' . $data->id.'\');" >Eliminar </a>';
+            return $btn;
+        })
+       
+        ->rawColumns(['action','is_active'])
+        ->toJson();
     }
 }

@@ -84,7 +84,7 @@
                     <h3 class="text-lg font-medium text-gray-900">Telefonos</h3>
             
                     <p class="mt-1 text-sm text-gray-600">
-                        agrega y edita  los telefonos de la tienda
+                        Agrega y edita  los telefonos de la tienda
                     </p>
                 </div>
             
@@ -97,24 +97,28 @@
                     @include('backend.tiendas.telefonos.index',['tiendas'=>$tienda])
                 </div>
             </div>
-          {{--   <x-jet-form-section submit="updateProfileInformation">
-                <x-slot name="title">
-                    {{ __('Telefonos') }}
-                </x-slot>
-
-                <x-slot name="description">
-                    {{ __('agrega y edita  los telefonos de la tienda') }}
-                </x-slot>
-
-                <x-slot name="form">
-                    <div class="col-span-6 sm:col-span-4">
-
-                    @include('backend.tiendas.telefonos.index',['tiendas'=>$tienda])
-                    </div>
-                </x-slot>
-            </x-jet-form-section> --}}
-
+        
             <x-jet-section-border />
+
+            <div class="md:grid md:grid-cols-3 md:gap-6">
+                <div class="md:col-span-1 flex justify-between">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium text-gray-900">Categorias</h3>
+            
+                    <p class="mt-1 text-sm text-gray-600">
+                        Agrega y edita  las categorias de productos de esta tienda
+                    </p>
+                </div>
+            
+                <div class="px-4 sm:px-0">
+                    
+                </div>
+            </div>
+            
+                <div class="mt-5 md:mt-0 md:col-span-2">
+                    @include('backend.tiendas.categorias.index',['tiendas'=>$tienda])
+                </div>
+            </div>
 
            
         </div>

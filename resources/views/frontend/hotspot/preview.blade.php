@@ -15,13 +15,13 @@
 <meta name="twitter:description" content="A curated directory of the best Tailwind templates and UI kits to kickstart your next design.">
 <meta name="twitter:creator" content="@tailwindawesome">
 <meta name="twitter:image" content="{{asset('img/logo.jpg')}}"> --}}
-    <meta property="og:url" content="{{URL::to('/')}}">
-    <meta property="og:title" content="test">
+    <meta property="og:url" content="{{ URL::to('/') }}">
+    <meta property="og:title" content="preview {{$zona->nombre}}">
     <meta property="og:type" content="article">
-    <meta property="og:description" content="test">
-    <meta property="og:site_name" content="Test">
+    <meta property="og:description" content="preview {{$zona->nombre}}">
+    <meta property="og:site_name" content="RMS">
     <meta property="og:image" content="{{ asset('img/logo.jfif') }}">
-    <meta name="site_name" content="Poner">
+    <meta name="site_name" content="RMS">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
@@ -29,15 +29,15 @@
     <!-- Styles -->
 
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-   {{--  <link rel="stylesheet" href="{{ asset('css/styles.css') }}"> --}}
+    {{--  <link rel="stylesheet" href="{{ asset('css/styles.css') }}"> --}}
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
     <script src="{{ asset('js/frontend.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js" defer></script>
+    <script src="{{asset('js/tw-elements.js')}}" defer></script>
     <link rel="icon" type="image/x-icon" href="{{ asset('img/logo.jfif') }}" />
-     <!-- Fonts -->
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-     @livewireStyles
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    @livewireStyles
 </head>
 
 <body class="antialiased" data-controller='lazy-loader'>
@@ -185,9 +185,9 @@
                                 <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                                     href="/">Inicio</a>
                                 <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                                    href="/">Ventas</a>
+                                    href="/?type=template">Templates</a>
                                 <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                                    href="/?type=kit">Agenda</a>
+                                    href="/?type=kit">UI kits</a>
                                 <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                                     href="/blog">Blog</a>
                                 @if (Route::has('login'))
@@ -218,28 +218,26 @@
                                             d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z">
                                         </path>
                                     </svg>
-                                   
+
                                 </a>
                             </div>
                         </nav>
 
 
                         <main class="px-4 mx-auto mt-10 max-w-7xl sm:mt-14">
-                            
+
                             <div id="carouselExampleCrossfade" class="carousel slide carousel-fade relative"
                                 data-bs-ride="carousel">
                                 <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
                                     <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="0"
-                                    class="active"
-                                    aria-label="Slide 1"></button>
-                                    @forelse ($carruseles as $key => $item)
-
-                                    <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="{{$key+1}}"
-                                    {{-- class="active" --}} aria-current="true" aria-label="Slide {{$key+1}}"></button>
+                                        class="active" aria-label="Slide 1"></button>
+                                    @forelse ($zona->imagenes as $key => $item)
+                                        <button type="button" data-bs-target="#carouselExampleCrossfade"
+                                            data-bs-slide-to="{{ $key + 1 }}" {{-- class="active" --}} aria-current="true"
+                                            aria-label="Slide {{ $key + 1 }}"></button>
                                     @empty
-
                                     @endforelse
-                                    
+
                                     {{-- <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="1"
                                         aria-label="Slide 2"></button>
                                     <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="2"
@@ -247,16 +245,15 @@
                                 </div>
                                 <div class="carousel-inner relative w-full overflow-hidden">
                                     <div class="carousel-item active float-left w-full">
-                                        <img src="{{asset('img/jaca_fondo.jfif')}}" class="block w-full"
-                                        alt="Wild Landscape" />
+                                        <img src="{{ asset('img/jaca_fondo.jfif') }}" class="object-contain md:object-scale-down h-48 w-full"
+                                            alt="Wild Landscape" />
                                     </div>
-                                    @forelse ($carruseles as $key => $item)
-                                    <div class="carousel-item float-left w-full">
-                                        <img src="{{asset($item->imagen_url)}}" class="block w-full"
-                                            alt="Img-{{$item->id}}" />
-                                    </div>
+                                    @forelse ($zona->imagenes->shuffle() as $key => $item)
+                                        <div class="carousel-item float-left w-full">
+                                            <img src="{{ asset($item->imagen_url) }}" class="object-contain md:object-scale-down h-48 w-full"
+                                                alt="Img-{{ $item->id }}" />
+                                        </div>
                                     @empty
-
                                     @endforelse
 
                                     {{-- <div class="carousel-item float-left w-full">
@@ -282,46 +279,65 @@
 
                             <div class="text-center">
                                 <h1
-                                    class="text-4xl font-extrabold tracking-tight text-gray-900 font-display sm:text-5xl md:text-6xl xl:text-7xl">
-                                   {{--  <span class="block xl:inline">Discover the best</span> --}}
+                                    class="text-3xl font-extrabold tracking-tight text-gray-900 font-display sm:text-4xl md:text-6xl xl:text-7xl">
+                                    {{--  <span class="block xl:inline">Discover the best</span> --}}
                                     <span class="block text-amarillo-600">RMS</span>
                                 </h1>
-                                
+
                                 <p
                                     class="max-w-md mx-auto mt-3 text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-                                    Descripcion 
+                                <div class="text-center mx-auto">
+                                        <label for="user"
+                                            class="block text-sm font-medium text-gray-700"> User
+                                        </label>
+                                        <div class="mt-1 text-center mx-auto">
+                                            <input id="user" name="user" type="text"
+                                                autocomplete="user" required
+                                                class="block w-80  md:w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm mx-auto">
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-1">
+                                        <label for="password"
+                                            class="block text-sm font-medium text-gray-700"> Password </label>
+                                        <div class="mt-1">
+                                            <input id="password" name="password" type="password"
+                                                autocomplete="current-password" required
+                                                class="block w-80 sm:w-80  px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm mx-auto">
+                                        </div>
+                                    </div> 
+                                    <div class="space-y-1 mt-4 ">
+                                        <button type="submit"
+                                            class="flex justify-center w-80 mx-auto px-4 py-2 my-3 text-sm font-medium text-white bg-amarillo-600 border border-transparent rounded-md shadow-sm hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500">Entrar
+                                            in</button>
+                                    </div>
                                 </p>
                                 
+
                             </div>
                         </main>
                     </div>
                 </div>
 
-                @livewire('principal')
+            
 
-                
-                
+
                 <footer class="bg-white" aria-labelledby="footerHeading">
                     <h2 id="footerHeading" class="sr-only">Footer</h2>
                     <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
                         <div class="mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
                             <div class="flex space-x-6 md:order-2">
-                              
+
                             </div>
                             <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
-                                &copy; {{date('Y')}} RMS Tecnología y Redes.
+                                &copy; {{ date('Y') }} RMS Tecnología y Redes.
                             </p>
                         </div>
                     </div>
                 </footer>
 
             </div>
-            {{-- modal puede servir más adelante --}}
-       
-            <!-- This example requires Tailwind CSS v2.0+ -->
-          
 
-           
 
             @livewireScripts
 

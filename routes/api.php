@@ -3,6 +3,7 @@
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CarruselController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\CategoriaTiendaController;
 use App\Http\Controllers\ImagenHotspotController;
 use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\ZonaController;
@@ -27,6 +28,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('tiendas/all',[TiendaController::class,'datatable_tienda'])->name('api.tiendas');
 
 Route::get('telefonos/{id}',[TiendaController::class,'datatable_telefonos'])->name('api.telefonos');
+Route::get('tienda/{id}/categorias',[CategoriaTiendaController::class,'datatable_tienda_categorias'])->name('api.tienda.categorias');
+
 Route::get('giros/all',[CategoriaController::class,'datatable_categorias'])->name('api.giros');
 Route::get('banners/all',[CarruselController::class,'datatable_banners'])->name('api.banners');
 Route::get('blog/all',[BlogController::class,'datatable_blogs'])->name('api.blogs');

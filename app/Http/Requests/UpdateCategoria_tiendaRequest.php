@@ -13,7 +13,7 @@ class UpdateCategoria_tiendaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

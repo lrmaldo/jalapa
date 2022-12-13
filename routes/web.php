@@ -4,6 +4,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\CarruselController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\CategoriaTiendaController;
 use App\Http\Controllers\HotspotController;
 use App\Http\Controllers\ImagenHotspotController;
 use App\Http\Controllers\TelefonoController;
@@ -39,6 +40,9 @@ Route::get('/t/{id_tienda}/producto/{id}',[TiendaController::class,'vista_produc
 Route::get('/blogs',[BlogController::class,'vista_todos'])->name('fronted.blogs');
 Route::get('blogs/{id}',[BlogController::class,'vista_frontend'])->name('fronted.blog.show');
 
+/* hotspot */
+Route::get('/hotspot/preview/{id}',[HotspotController::class,'vista_preview'])->name('fronted.hotspot.preview');
+
 
 Route::middleware([
     'auth:sanctum',
@@ -50,6 +54,7 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('tiendas',TiendaController::class);
+    Route::resource('tienda-categorias',CategoriaTiendaController::class);
     Route::resource('banners',CarruselController::class);
     Route::resource('giros',CategoriaController::class);
     Route::resource('hotspots',HotspotController::class);

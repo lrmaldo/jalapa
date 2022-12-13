@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Hotspot;
 use App\Http\Requests\StoreHotspotRequest;
 use App\Http\Requests\UpdateHotspotRequest;
+use App\Models\Zona;
 
 class HotspotController extends Controller
 {
@@ -82,5 +83,12 @@ class HotspotController extends Controller
     public function destroy(Hotspot $hotspot)
     {
         //
+    }
+
+    public function vista_preview($id){
+        $zona  = Zona::with('imagenes')->find($id);
+        $zona == null?abort(404,"Zona no existe"): null;
+        //dd($zona->imagenes);
+        return view ('frontend.hotspot.preview',compact('zona'));
     }
 }

@@ -199,6 +199,9 @@ class TiendaController extends Controller
         ->addColumn('categoria',function($data){
             return $data->categoria->nombre;
         })
+        ->editColumn('tipo_tienda',function($data){
+            return $data->tipo_tienda==1 ? 'Directorio' :'Tienda con productos';
+        })
         ->addColumn('estatus',function($data){
             return $data->is_active ?
             '<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full  bg-green-100 text-green-500">Activo</span>'
