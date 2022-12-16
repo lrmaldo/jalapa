@@ -15,13 +15,13 @@
 <meta name="twitter:description" content="A curated directory of the best Tailwind templates and UI kits to kickstart your next design.">
 <meta name="twitter:creator" content="@tailwindawesome">
 <meta name="twitter:image" content="{{asset('img/logo.jpg')}}"> --}}
-    <meta property="og:url" content="{{ URL::to('/') }}">
-    <meta property="og:title" content="test">
+    <meta property="og:url" content="{{ URL::to('/hotspot/preview/'.$zona->id) }}">
+    <meta property="og:title" content="preview {{$zona->nombre}}">
     <meta property="og:type" content="article">
-    <meta property="og:description" content="test">
-    <meta property="og:site_name" content="Test">
+    <meta property="og:description" content="Hotspot {{$zona->nombre}}">
+    <meta property="og:site_name" content="RMS">
     <meta property="og:image" content="{{ asset('img/logo.jfif') }}">
-    <meta name="site_name" content="Poner">
+    <meta name="site_name" content="RMS">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
@@ -39,23 +39,45 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     @livewireStyles
 </head>
+{{-- valores de hotspot --}}
+@php
+    $mac=$_POST['mac'];
+    $ip=$_POST['ip'];
+    $username=$_POST['username'];
+    $linklogin=$_POST['link-login'];
+    $linkorig=$_POST['link-orig'];
+    $error=$_POST['error'];
+    $chapid=$_POST['chap-id'];
+    $chapchallenge=$_POST['chap-challenge'];
+    $linkloginonly=$_POST['link-login-only'];
+    $linkorigesc=$_POST['link-orig-esc'];
+    $macesc=$_POST['mac-esc'];
+    @endphp
+<body class="antialiased" >
 
-<body class="antialiased" data-controller='lazy-loader'>
-    {{--  <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                        @endif
-                    @endif
-                </div>
-            @endif
-              --}}
+     <!-- $(if chap-id) -->
+  
+     <form name="sendin" action="<?php echo $linkloginonly; ?>" method="post">
+        <input type="hidden" name="username" />
+        <input type="hidden" name="password" />
+        <input type="hidden" name="dst" value="<?php echo $linkorig; ?>" />
+        <input type="hidden" name="popup" value="true" />
+    </form>
+    
+    <script type="text/javascript" src="{{asset('/js/md5.js')}}"></script>
+    <script type="text/javascript">
+    
+        function doLogin() {
+                <?php if(strlen($chapid) < 1) echo "return true;"; ?>
+        document.sendin.username.value = document.login.username.value;
+        document.sendin.password.value = hexMD5('<?php echo  $chapid; ?>' + document.login.password.value + '<?php echo $chapchallenge; ?>');
+        document.sendin.submit();
+        return false;
+        }
+    
+    </script>
+ <!-- $(endif) -->
+    
 
 
 
@@ -70,7 +92,7 @@
                             <div class="flex px-2 lg:px-0">
                                 <div class="flex items-center flex-shrink-0">
                                     <a class="inline-flex items-center font-black font-display text-amarillo-800 text-xl"
-                                        href="/">
+                                        >
 
 
                                         <img src="{{ asset('img/logo.jfif') }}" alt="" width="48"
@@ -81,13 +103,13 @@
                                     <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
                                     <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                                         href="/">Inicio</a>
-                                    <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                                        href="/?type=template">Ventas</a>
+                                    {{-- <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                                        href="/">Ventas</a>
                                     <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                                         href="/?type=kit">Agenda</a>
                                     <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                                        href="/?price=free">Blog</a>
-                                    @if (Route::has('login'))
+                                        href="/?price=free">Blog</a> --}}
+                                  {{--   @if (Route::has('login'))
 
                                         @auth
                                             <a href="{{ url('/dashboard') }}"
@@ -96,59 +118,14 @@
                                             <a href="{{ route('login') }}"
                                                 class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Login</a>
 
-                                            {{-- @if (Route::has('register'))
-                                                    <a href="{{ route('register') }}"
-                                                        class="ml-4 text-sm text-gray-700 underline">Register</a> --}}
+                                          
                                         @endif
 
 
-                                        @endif
+                                        @endif --}}
                                     </div>
                                 </div>
-                                <div
-                                    class="flex  items-center justify-end flex-1 px-2 sm:justify-center lg:ml-6 lg:justify-end">
-                                    <div class='relative hidden w-full h-12 max-w-lg rounded-full sm:block'>
-                                        <form target="_blank" data-controller="newsletter"
-                                            data-action="submit-&gt;newsletter#onSubmit" data-newsletter-target="form"
-                                            action="" accept-charset="UTF-8" method="post">
-                                            <div
-                                                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                                <!-- Heroicon name: solid/mail -->
-                                                <svg class='w-5 h-5 text-gray-400' xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                                </svg>
-                                            </div>
-                                            <input
-                                                class="w-full pl-10 pr-24 py-3.5 border-0 bg-gray-100 border-transparent rounded-full leading-5 transition duration-150 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-1 focus:ring-rojo-200 focus:border-rojo-200 sm:text-sm"
-                                                data-newsletter-target="email" required="required"
-                                                placeholder="Reciba Notificaciones " autocomplete="email" type="email"
-                                                name="member[email]" id="member[email]" />
-                                            <button type='submit'
-                                                class='absolute inline-flex items-center h-10 px-4 py-2 text-sm text-white transition duration-150  ease-in-out rounded-full outline-none right-1 top-1 bg-amarillo-600 md:px-6 sm:font-medium hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500'>
-                                                Suscribete
-                                            </button>
-
-                                            {{-- <a href="" class='absolute inline-flex items-center h-10 px-4 py-2 text-sm text-white transition duration-150  ease-in-out rounded-full outline-none right-1 top-1 bg-amarillo-500 md:px-6 sm:font-medium hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500' >test </a> --}}
-
-                                        </form>
-                                    </div>
-
-                                    <button type="button"
-                                        class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-white border border-transparent rounded-full shadow-sm sm:hidden bg-naranja-600 hover:bg-naranja-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-naranja-500"
-                                        data-controller='toggle newsletter' data-toggle-remote='#newsletter-modal'
-                                        data-action='click->toggle#toggleRemote click->newsletter#removePopupTimeout'>
-                                        <!-- Heroicon name: solid/mail -->
-                                        <svg class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path
-                                                d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                                        </svg>
-                                        Suscribete
-                                    </button>
-                                </div>
+                             
 
 
                                 <div class="flex items-center">
@@ -184,12 +161,12 @@
                             <div class="px-2 pt-2 pb-3">
                                 <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                                     href="/">Inicio</a>
-                                <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                               {{--  <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                                     href="/?type=template">Templates</a>
                                 <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                                    href="/?type=kit">UI kits</a>
-                                <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                                    href="/blog">Blog</a>
+                                    href="/?type=kit">UI kits</a> --}}
+                              {{--   <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                                    href="/blog">Blog</a> --}}
                                 @if (Route::has('login'))
 
                                     @auth
@@ -208,18 +185,7 @@
                                     @endif
 
                                 </div>
-                                <a class="inline-flex justify-center items-center w-full px-5 py-3 text-center font-medium text-cool-indigo-600 bg-gray-50 hover:bg-gray-100"
-                                    href="https://twitter.com/intent/tweet?text=Check+out+Tailwind+Awesome&amp;url=https%3A%2F%2Fwww.tailwindawesome.com%2F&amp;via=tailwindawesome">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 -ml-1 opacity-80"
-                                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path
-                                            d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z">
-                                        </path>
-                                    </svg>
-
-                                </a>
+                               
                             </div>
                         </nav>
 
@@ -248,7 +214,7 @@
                                         <img src="{{ asset('img/jaca_fondo.jfif') }}" class="object-contain md:object-scale-down h-48 w-full"
                                             alt="Wild Landscape" />
                                     </div>
-                                    @forelse ($zona->imagenes->shuffle() as $key => $item)
+                                    @forelse ($zona->imagenes->shuffle() as $item)
                                         <div class="carousel-item float-left w-full">
                                             <img src="{{ asset($item->imagen_url) }}" class="object-contain md:object-scale-down h-48 w-full"
                                                 alt="Img-{{ $item->id }}" />
@@ -278,21 +244,31 @@
                             </div>
 
                             <div class="text-center">
-                                <h1
-                                    class="text-3xl font-extrabold tracking-tight text-gray-900 font-display sm:text-4xl md:text-6xl xl:text-7xl">
-                                    {{--  <span class="block xl:inline">Discover the best</span> --}}
-                                    <span class="block text-amarillo-600">RMS</span>
-                                </h1>
+                                <!-- $(if trial == 'yes') -->
+                                    <h1
+                                        class="text-3xl font-extrabold tracking-tight text-gray-900 font-display sm:text-3xl md:text-3xl xl:text-3xl">
+                                        {{--  <span class="block xl:inline">Discover the best</span> --}}
+                                        <span class="block text-amarillo-600">Internet Gratis</span>
+                                    </h1>
+                                    <div class="text-center">
+                                        {{--  <span class="block text-md font-medium text-amarillo-300">Internet Gratis </span> --}}
+                                        <a class="flex justify-center w-80 mx-auto px-4 py-2 my-3 text-sm font-medium text-white bg-amarillo-600 border border-transparent rounded-md shadow-sm hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500" id="boton_gratis"><span id="countdown"></span></a>
+                                    </div>
 
+                                <!-- $(endif) -->
+                                <!-- removed $(if chap-id) $(endif)  around OnSubmit -->
+                                <form name="login" action="<?php echo $linkloginonly; ?>" method="post" onSubmit="return doLogin()" >
+                                    <input type="hidden" name="dst" value="<?php echo $linkorig; ?>" />
+                                    <input type="hidden" name="popup" value="true" />
                                 <p
                                     class="max-w-md mx-auto mt-3 text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-                                <div class="text-center mx-auto">
+                                <div class="text-center mx-auto mb-3">
+                                        <p>Inicie sesión para utilizar este servicio</p>
                                         <label for="user"
-                                            class="block text-sm font-medium text-gray-700"> User
+                                            class="block text-sm font-medium text-gray-700">Login
                                         </label>
                                         <div class="mt-1 text-center mx-auto">
-                                            <input id="user" name="user" type="text"
-                                                autocomplete="user" required
+                                            <input name="username" type="text" value="<?php echo $username; ?>" 
                                                 class="block w-80  md:w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm mx-auto">
                                         </div>
                                     </div>
@@ -302,16 +278,20 @@
                                             class="block text-sm font-medium text-gray-700"> Password </label>
                                         <div class="mt-1">
                                             <input id="password" name="password" type="password"
-                                                autocomplete="current-password" required
+                                                 
                                                 class="block w-80 sm:w-80  px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm mx-auto">
                                         </div>
                                     </div> 
                                     <div class="space-y-1 mt-4 ">
                                         <button type="submit"
                                             class="flex justify-center w-80 mx-auto px-4 py-2 my-3 text-sm font-medium text-white bg-amarillo-600 border border-transparent rounded-md shadow-sm hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500">Entrar
-                                            in</button>
+                                            </button>
                                     </div>
+                                    <!-- $(if error) -->
+                                    <br /><div style="color: #FF8080; font-size: 14px"><?php echo $error; ?></div>
+                                    <!-- $(endif) -->
                                 </p>
+                                </form>
                                 
 
                             </div>
@@ -340,7 +320,7 @@
 
 
             @livewireScripts
-
+            <script src="{{asset('/js/hotspot/cuenta_regresiva.js')}}" defer></script>
         </body>
 
         </html>

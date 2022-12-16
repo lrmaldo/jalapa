@@ -22,6 +22,7 @@ class Principal extends Component
         $tiendas;
        /*  if(is_null($this->select_categoria)){ */
             $tiendas =Tienda::where(function($query) use ($buscar) {
+                $query->where('is_active', true);
                 $query->orWhere('nombre', 'LIKE',"%{$buscar}%");
                /*  dd($this->select_categoria); */
                if(!is_null($this->select_categoria)){

@@ -37,7 +37,7 @@ $(document).ready(function () {
 
 const add_categoria = () => {
     Swal.fire({
-        title: "Agregar Teléfono",
+        title: "Agregar Categoria",
         html: ` 
             <div class="">
             <div class="md:w-full">

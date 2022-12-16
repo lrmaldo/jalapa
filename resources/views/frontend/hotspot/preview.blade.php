@@ -15,10 +15,10 @@
 <meta name="twitter:description" content="A curated directory of the best Tailwind templates and UI kits to kickstart your next design.">
 <meta name="twitter:creator" content="@tailwindawesome">
 <meta name="twitter:image" content="{{asset('img/logo.jpg')}}"> --}}
-    <meta property="og:url" content="{{ URL::to('/') }}">
-    <meta property="og:title" content="preview {{$zona->nombre}}">
+    <meta property="og:url" content="{{ URL::to('/hotspot/preview/' . $zona->id) }}">
+    <meta property="og:title" content="preview {{ $zona->nombre }}">
     <meta property="og:type" content="article">
-    <meta property="og:description" content="preview {{$zona->nombre}}">
+    <meta property="og:description" content="preview {{ $zona->nombre }}">
     <meta property="og:site_name" content="RMS">
     <meta property="og:image" content="{{ asset('img/logo.jfif') }}">
     <meta name="site_name" content="RMS">
@@ -33,7 +33,7 @@
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
     <script src="{{ asset('js/frontend.js') }}" defer></script>
-    <script src="{{asset('js/tw-elements.js')}}" defer></script>
+    <script src="{{ asset('js/tw-elements.js') }}" defer></script>
     <link rel="icon" type="image/x-icon" href="{{ asset('img/logo.jfif') }}" />
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -245,12 +245,13 @@
                                 </div>
                                 <div class="carousel-inner relative w-full overflow-hidden">
                                     <div class="carousel-item active float-left w-full">
-                                        <img src="{{ asset('img/jaca_fondo.jfif') }}" class="object-contain md:object-scale-down h-48 w-full"
-                                            alt="Wild Landscape" />
+                                        <img src="{{ asset('img/jaca_fondo.jfif') }}"
+                                            class="object-contain md:object-scale-down h-48 w-full" alt="Wild Landscape" />
                                     </div>
                                     @forelse ($zona->imagenes->shuffle() as $key => $item)
                                         <div class="carousel-item float-left w-full">
-                                            <img src="{{ asset($item->imagen_url) }}" class="object-contain md:object-scale-down h-48 w-full"
+                                            <img src="{{ asset($item->imagen_url) }}"
+                                                class="object-contain md:object-scale-down h-48 w-full"
                                                 alt="Img-{{ $item->id }}" />
                                         </div>
                                     @empty
@@ -279,47 +280,55 @@
 
                             <div class="text-center">
                                 <h1
-                                    class="text-3xl font-extrabold tracking-tight text-gray-900 font-display sm:text-4xl md:text-6xl xl:text-7xl">
+                                    class="text-3xl font-extrabold tracking-tight text-gray-900 font-display sm:text-3xl md:text-3xl xl:text-3xl">
                                     {{--  <span class="block xl:inline">Discover the best</span> --}}
-                                    <span class="block text-amarillo-600">RMS</span>
+                                    <span class="block text-amarillo-600">Internet Gratis</span>
                                 </h1>
 
                                 <p
                                     class="max-w-md mx-auto mt-3 text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-                                <div class="text-center mx-auto">
-                                        <label for="user"
-                                            class="block text-sm font-medium text-gray-700"> User
-                                        </label>
-                                        <div class="mt-1 text-center mx-auto">
-                                            <input id="user" name="user" type="text"
-                                                autocomplete="user" required
-                                                class="block w-80  md:w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm mx-auto">
-                                        </div>
+                                <div class="text-center mx-auto mb-3">
+                                    <div class="text-center">
+                                        {{--  <span class="block text-md font-medium text-amarillo-300">Internet Gratis </span> --}}
+                                        <style>
+                                            .not-active {
+                                                pointer-events: none;
+                                                cursor: default;
+                                            }
+                                        </style>
+                                        <a href="#"class="flex justify-center w-80 mx-auto px-4 py-2 my-3 text-sm font-medium text-white bg-amarillo-600 border border-transparent rounded-md shadow-sm hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500 not-active"
+                                            id="boton_gratis"><span id="countdown"></span></a>
                                     </div>
+                                    <label for="user" class="block text-sm font-medium text-gray-700"> User
+                                    </label>
+                                    <div class="mt-1 text-center mx-auto">
+                                        <input id="user" name="user" type="text" autocomplete="user" required
+                                            class="block w-80  md:w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm mx-auto">
+                                    </div>
+                                </div>
 
-                                    <div class="space-y-1">
-                                        <label for="password"
-                                            class="block text-sm font-medium text-gray-700"> Password </label>
-                                        <div class="mt-1">
-                                            <input id="password" name="password" type="password"
-                                                autocomplete="current-password" required
-                                                class="block w-80 sm:w-80  px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm mx-auto">
-                                        </div>
-                                    </div> 
-                                    <div class="space-y-1 mt-4 ">
-                                        <button type="submit"
-                                            class="flex justify-center w-80 mx-auto px-4 py-2 my-3 text-sm font-medium text-white bg-amarillo-600 border border-transparent rounded-md shadow-sm hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500">Entrar
-                                            in</button>
+                                <div class="space-y-1">
+                                    <label for="password" class="block text-sm font-medium text-gray-700"> Password </label>
+                                    <div class="mt-1">
+                                        <input id="password" name="password" type="password"
+                                            autocomplete="current-password" required
+                                            class="block w-80 sm:w-80  px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm mx-auto">
                                     </div>
+                                </div>
+                                <div class="space-y-1 mt-4 ">
+                                    <button type="submit"
+                                        class="flex justify-center w-80 mx-auto px-4 py-2 my-3 text-sm font-medium text-white bg-amarillo-600 border border-transparent rounded-md shadow-sm hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500">Entrar
+                                    </button>
+                                </div>
                                 </p>
-                                
+
 
                             </div>
                         </main>
                     </div>
                 </div>
 
-            
+
 
 
                 <footer class="bg-white" aria-labelledby="footerHeading">
@@ -340,7 +349,7 @@
 
 
             @livewireScripts
-
+            <script src="{{ asset('/js/hotspot/cuenta_regresiva.js') }}" defer></script>
         </body>
 
         </html>

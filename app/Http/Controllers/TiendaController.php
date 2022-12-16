@@ -6,6 +6,7 @@ use App\Models\Tienda;
 use App\Http\Requests\StoreTiendaRequest;
 use App\Http\Requests\UpdateTiendaRequest;
 use App\Models\Categoria;
+use App\Models\Categoria_tienda;
 use App\Models\Producto;
 use App\Models\Telefono;
 use App\Models\User;
@@ -91,6 +92,11 @@ class TiendaController extends Controller
      */
     public function show(Tienda $tienda)
     {
+        /**
+         * @param categorias $categorias de la tienda
+         */
+        //$categorias = Categoria_tienda::where('tienda_id',$tienda->id)->get();
+
         return view('backend.tiendas.show',compact('tienda'));
     }
 

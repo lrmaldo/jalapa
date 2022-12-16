@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CategoriaTiendaController;
 use App\Http\Controllers\HotspotController;
 use App\Http\Controllers\ImagenHotspotController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\TelefonoController;
 use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\ZonaController;
@@ -43,6 +44,8 @@ Route::get('blogs/{id}',[BlogController::class,'vista_frontend'])->name('fronted
 /* hotspot */
 Route::get('/hotspot/preview/{id}',[HotspotController::class,'vista_preview'])->name('fronted.hotspot.preview');
 
+Route::post('hotspot-zona/{id}',[ZonaController::class,'hotspot_zona'])->name('zonas.hotspot_zona');
+Route::get('alogin/{id}',[ZonaController::class,'alogin'])->name('zonas.alogin');
 
 Route::middleware([
     'auth:sanctum',
@@ -53,8 +56,14 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('zonas/{id}/descargar/login',[ZonaController::class,'descargar_login'])->name('descargar.login');
+    Route::get('zonas/{id}/descargar/alogin',[ZonaController::class,'descargar_alogin'])->name('descargar.alogin');
+
+   
+
     Route::resource('tiendas',TiendaController::class);
     Route::resource('tienda-categorias',CategoriaTiendaController::class);
+    Route::resource('tienda-producto',ProductoController::class);
     Route::resource('banners',CarruselController::class);
     Route::resource('giros',CategoriaController::class);
     Route::resource('hotspots',HotspotController::class);

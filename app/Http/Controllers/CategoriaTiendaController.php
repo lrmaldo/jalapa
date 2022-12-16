@@ -107,4 +107,13 @@ class CategoriaTiendaController extends Controller
         ->rawColumns(['action','is_active'])
         ->toJson();
     }
+
+    /**
+     * @param data_categorias function para obtener el data en json para el formulario de  productos cuando cargue el select 
+     */
+    public function data_categorias($id){
+        $categorias = Categoria_tienda::where('tienda_id',$id)->get();
+        return response()->json($categorias);
+        
+    }
 }

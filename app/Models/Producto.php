@@ -15,13 +15,13 @@ class Producto extends Model
         'precio',
         'imagen_url',
         'is_active',
-        'categria_id',
+        'categoria_id',
         'tienda_id',
 
     ];
 
     public function categoria(){
-        return $this->belongsTo(Categoria_tienda::class,'tienda_id');
+        return $this->belongsTo(Categoria_tienda::class,'categoria_id');
     }
     public function tienda(){
         return $this->belongsTo(Tienda::class,'tienda_id');
