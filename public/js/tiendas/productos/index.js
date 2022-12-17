@@ -131,6 +131,7 @@ const add_producto = () => {
             /* validacion */
             let _url_store = "/tienda-producto";
             let nombre = document.querySelector("#nombre"),descripcion= document.querySelector("#descripcion"), existencias = document.querySelector("#existencias"), precio = document.querySelector("#precio"), categoria_id = document.querySelector("#categoria_id");
+           
 
             let imagen_url = $("#imagen_url")[0].files[0];
 
@@ -161,6 +162,7 @@ const add_producto = () => {
             formData.append('precio', precio.value);
             formData.append('imagen_url',imagen_url)
             formData.append('tienda_id',tienda_id);
+           
 
             return fetch(_url_store, {
                 method: "POST",
@@ -303,7 +305,7 @@ const edit_producto = (id) => {
                     /* validacion */
                     let _url_update = `/tienda-producto/${id}`;
 
-                    let nombre = document.querySelector("#nombre"),descripcion= document.querySelector("#descripcion"), existencias = document.querySelector("#existencias"), precio = document.querySelector("#precio"), categoria_id = document.querySelector("#categoria_id");
+                    let nombre = document.querySelector("#nombre"),descripcion= document.querySelector("#descripcion"), existencias = document.querySelector("#existencias"), precio = document.querySelector("#precio"), categoria_id = document.querySelector("#categoria_id"), is_active = document.querySelector("#is_active");
 
                     let imagen_url = $("#imagen_url")[0].files[0];
         
@@ -335,6 +337,7 @@ const edit_producto = (id) => {
                     formData.append('precio', precio.value);
                     formData.append('imagen_url',imagen_url)
                     formData.append('tienda_id',tienda_id);
+                    formData.append('is_active', is_active.value);
 
                     return fetch(_url_update, {
                         method: "POST",

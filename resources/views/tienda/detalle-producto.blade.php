@@ -108,8 +108,7 @@
                                 <div
                                     class="flex  items-center justify-end flex-1 px-2 sm:justify-center lg:ml-6 lg:justify-end">
                                     <div class='relative hidden w-full h-12 max-w-lg rounded-full sm:block'>
-                                        <form target="_blank" data-controller="newsletter"
-                                            data-action="submit-&gt;newsletter#onSubmit" data-newsletter-target="form"
+                                        <form 
                                             action="" accept-charset="UTF-8" method="post">
                                             <div
                                                 class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -122,9 +121,9 @@
                                             </div>
                                             <input
                                                 class="w-full pl-10 pr-24 py-3.5 border-0 bg-gray-100 border-transparent rounded-full leading-5 transition duration-150 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-1 focus:ring-rojo-200 focus:border-rojo-200 sm:text-sm"
-                                                data-newsletter-target="email" required="required"
+                                               required="required"
                                                 placeholder="Reciba Notificaciones " autocomplete="email" type="email"
-                                                name="member[email]" id="member[email]" />
+                                                name="email" id="email" />
                                             <button type='submit'
                                                 class='absolute inline-flex items-center h-10 px-4 py-2 text-sm text-white transition duration-150  ease-in-out rounded-full outline-none right-1 top-1 bg-amarillo-600 md:px-6 sm:font-medium hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500'>
                                                 Suscribete
@@ -184,12 +183,12 @@
                             <div class="px-2 pt-2 pb-3">
                                 <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                                     href="/">Inicio</a>
-                                <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                              {{--   <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                                     href="/?type=template">Templates</a>
                                 <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                                     href="/?type=kit">UI kits</a>
                                 <a class="block px-3 py-2 rounded-2lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                                    href="/?price=free">Blog</a>
+                                    href="/?price=free">Blog</a> --}}
                                 @if (Route::has('login'))
 
                                     @auth
@@ -226,8 +225,8 @@
 
                         <main class="px-4 mx-auto mt-10 max-w-7xl sm:mt-14">
                             {{-- carrusel --}}
-                            <div class="float-left w-80">
-                                <img src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp" class="block w-full"
+                            <div class=" mx-auto w-80 max-h-50">
+                                <img src="{{$producto->imagen_url}}" class="block w-full"
                                     alt="Exotic Fruits" />
                             </div>
                           {{--   <div id="carouselExampleCrossfade" class="carousel slide carousel-fade relative"

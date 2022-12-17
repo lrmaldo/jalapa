@@ -48,16 +48,17 @@
                     <div class="relative self-center bg-gray-100 rounded-2lg p-0.5 flex">
                         <a class="{{ $select_categoria == null ? 'bg-white' : '' }} border-gray-200 shadow-sm flex justify-center relative w-1/3 rounded-2lg py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-cool-indigo-400 focus:z-10 sm:w-1/3 sm:px-8"
                             href="javascript:void(0);" wire:click="resetFilters">Todos</a>
-                        @forelse($categorias as $categoria)
+                        @forelse($categorias as $categoria) 
                             <a class="border-transparent hover:text-gray-900 flex justify-center relative w-1/3 rounded-2lg py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-cool-indigo-300 focus:z-10 sm:w-1/3 sm:px-8 ml-0.5"
                                 href="javascript:void(0);"
                                 wire:click="seleccionarCategoria({{ $categoria->id }})">{{ $categoria->nombre }}</a>
-
+                               
                         @empty
                             <p> sin categorias</p>
                         @endforelse
 
                     </div>
+                   
                 </div>
 
                 <div class='sm:w-1/2 lg:w-1/3'>
@@ -70,7 +71,7 @@
 
         {{-- resultados --}}
 
-
+        {{$productos}}
 
        
             <div class='max-w-lg px-4 pt-12 mx-auto md:max-w-screen-2xl md:px-6 xl:px-8 2xl:px-12'>
@@ -81,19 +82,16 @@
                             <div
                                 class="flex flex-col w-full overflow-hidden bg-gray-100 rounded-2xl h-72 sm:h-80 md:h-72 lg:h-64 xl:h-80">
                                 <div
-                                    class="relative flex items-center justify-center flex-shrink-0 h-full group animate-pulse">
-                                    <img class="opacity-0 w-9/10 sm:w-10/12 lg:w-9/10 xl:w-10/12 h-auto rounded-lg shadow-md mx-auto object-cover object-left-top transition ease-in-out duration-300"
-                                        alt="Banter" data-src="{{ asset($producto->imagen_url) }}"
-                                        data-lazy-loader-target="entry" src="" />
+                                    class="relative flex items-center justify-center flex-shrink-0 h-full group ">
+                                    <img class=" w-9/10 sm:w-10/12 lg:w-9/10 xl:w-10/12 h-auto rounded-lg shadow-md mx-auto object-cover object-left-top transition ease-in-out duration-300"
+                                        alt="Banter" src="{{ asset($producto->imagen_url) }}"
+                                         />
                                     <div
                                         class='absolute inset-0 transition duration-200 bg-gray-900 opacity-0 rounded-2xl group-hover:opacity-60'>
                                     </div>
                                     <div
                                         class='absolute inset-0 flex flex-col items-center justify-center transition duration-200 opacity-0 group-hover:opacity-100'>
-                                        {{-- <div class='mb-4 shadow-sm w-33 rounded-2xl'>
-                                            <a class="inline-flex w-full justify-center items-center px-6 py-2  shadow-sm border border-transparent text-sm font-medium rounded-2xl text-cool-indigo-700 bg-white transition duration-150 hover:bg-cool-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cool-indigo-500"
-                                                target="_blank" href="/resources/banter/demo">Preview</a>
-                                        </div> --}}
+                                        
                                         <div class='shadow-sm w-33 rounded-2xl'>
                                             <a class="w-full justify-center inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-2xl shadow-sm text-white transition duration-150 bg-cool-indigo-600 hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cool-indigo-500"
                                                 href="/t/{{ $producto->tienda_id }}/producto/{{$producto->id}}">Ver</a>

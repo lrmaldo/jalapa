@@ -16,6 +16,7 @@ class CreateZonasTable extends Migration
         Schema::create('zonas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->nullable();
+            $table->integer('segundos')->nullable()->default(10);
             $table->foreignId('user_id')->nullable()
             ->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();

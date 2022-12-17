@@ -226,7 +226,7 @@
 
                         <main class="px-4 mx-auto mt-10 max-w-7xl sm:mt-14">
                             {{-- carrusel --}}
-                            <div id="carouselExampleCrossfade" class="carousel slide carousel-fade relative"
+                           {{--  <div id="carouselExampleCrossfade" class="carousel slide carousel-fade relative"
                                 data-bs-ride="carousel">
                                 <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
                                     <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="0"
@@ -264,7 +264,7 @@
                                         aria-hidden="true"></span>
                                     <span class="visually-hidden">Next</span>
                                 </button>
-                            </div>
+                            </div> --}}
 
                             <div class="text-center">
                                 <h1

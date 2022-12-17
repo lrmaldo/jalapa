@@ -78,7 +78,7 @@ class TiendaController extends Controller
         'facebook_url'=>$request->facebook_url,
         'tipo_tienda'=>$request->tipo_tienda,
         'categoria_id' =>$request->categoria_id,
-        'is_active' =>$request->is_active,
+        //'is_active' =>$request->is_active,
       ]);
 
       return redirect()->route('tiendas.index');
@@ -132,7 +132,7 @@ class TiendaController extends Controller
             'facebook_url'=>$request->facebook_url,
             'tipo_tienda'=>$request->tipo_tienda,
             'categoria_id' =>$request->categoria_id,
-            'is_active' =>$request->is_active,
+            'is_active' =>$request->is_active?1:0,
         ]);
       if($request->hasFile('logo_url')){
         $img = $request->file('logo_url');

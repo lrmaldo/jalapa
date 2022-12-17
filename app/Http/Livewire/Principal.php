@@ -22,7 +22,7 @@ class Principal extends Component
         $tiendas;
        /*  if(is_null($this->select_categoria)){ */
             $tiendas =Tienda::where(function($query) use ($buscar) {
-                $query->where('is_active', true);
+                //$query->where('is_active', 1);
                 $query->orWhere('nombre', 'LIKE',"%{$buscar}%");
                /*  dd($this->select_categoria); */
                if(!is_null($this->select_categoria)){
@@ -31,12 +31,14 @@ class Principal extends Component
                }
                 
             })
+            ->where('is_active','=',1)
             /* ->where('categoria_id',$this->select_categoria) */
             ->orderBy($this->sort, $this->direction)
             ->get();
             
 
         /* } */
+        //dd($tiendas);
 
         return view('livewire.principal',['tiendas'=>$tiendas,'categorias'=>$categorias]);
     }

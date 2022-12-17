@@ -88,10 +88,10 @@
                         <div
                             class="flex flex-col w-full overflow-hidden bg-gray-100 rounded-2xl h-72 sm:h-80 md:h-72 lg:h-64 xl:h-80">
                             <div
-                                class="relative flex items-center justify-center flex-shrink-0 h-full group animate-pulse">
-                                <img class="opacity-0 w-9/10 sm:w-10/12 lg:w-9/10 xl:w-10/12 h-auto rounded-lg shadow-md mx-auto object-cover object-left-top transition ease-in-out duration-300"
-                                    alt="Banter" data-src="{{ asset($tienda->logo_url) }}"
-                                    data-lazy-loader-target="entry" src="{{ asset($tienda->logo_url) }}" />
+                                class="relative flex items-center justify-center flex-shrink-0 h-full group ">
+                                <img class=" w-9/10 sm:w-10/12 lg:w-9/10 xl:w-10/12 h-auto rounded-lg shadow-md mx-auto object-cover object-left-top transition ease-in-out duration-300"
+                                    
+                                     src="{{ asset($tienda->logo_url) }}" />
                                 <div
                                     class='absolute inset-0 transition duration-200 bg-gray-900 opacity-0 rounded-2xl group-hover:opacity-60'>
                                 </div>
