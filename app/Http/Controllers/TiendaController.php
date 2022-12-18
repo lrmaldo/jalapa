@@ -176,9 +176,11 @@ class TiendaController extends Controller
     }
 
     public function vista_frontend($id){
-        $tienda = Tienda::find($id);
+        $tienda = Tienda::with('Telefonos')->find($id);
         //dd($tienda->id);
-        return view('tienda.frontend',compact('tienda'));
+        $whatsapp = $tienda->telefonos()->where('is_whatsapp',1)->select('telefono')->first();
+        $telefono = $tienda->telefonos()->where('is_whatsapp',0)->select('telefono')->first();
+        return view('tienda.frontend',compact('tienda','whatsapp','telefono'));
     }
 
     public function vista_producto($id_tienda, $id){
@@ -205,7 +207,7 @@ class TiendaController extends Controller
         ->addColumn('categoria',function($data){
             return $data->categoria->nombre;
         })
-        ->editColumn('tipo_tienda',function($data){
+        ->editColumn('tipo',function($data){
             return $data->tipo_tienda==1 ? 'Directorio' :'Tienda con productos';
         })
         ->addColumn('estatus',function($data){

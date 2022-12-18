@@ -27,8 +27,8 @@ class Tienda extends Model
         return $this->belongsTo(Categoria::class,'categoria_id','id');
     }
 
-    public function Telefonos(){
-        return $this->hasMany(Telefono::class,'telefonos_id','id');
+    public function telefonos(){
+        return $this->hasMany(Telefono::class);
     }
 
     public function User(){

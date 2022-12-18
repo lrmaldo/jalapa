@@ -22,6 +22,6 @@ class Telefono extends Model
     ];
 
     public function tienda(){
-        return $this->belongsTo(Tienda::class,'tienda_id');
+        return $this->hasMany(Tienda::class,'tienda_id','id');
     }
 }

@@ -11,9 +11,7 @@
                 <input placeholder="ejemplo Jalapa"
                     class="rounded-full w-full h-14 bg-transparent py-0 pl-8 pr-32 outline-none border-2 border-gray-100 shadow-md hover:outline-none focus:ring-rojo-400 focus:border-rojo-400"
                     type="text" name="query" id="query" wire:model='search' />
-                {{--  <input type="submit" class="absolute inline-flex items-center h-12 px-4 py-2 text-sm text-white transition duration-150 ease-in-out rouded-full outline-none right-3 top-3 bg-yellow-500" value="Buscar"> --}}
-                {{--  <button type="submit"
-                        class="absolute inline-flex items-center h-12 px-4 py-2 text-sm text-black transition duration-150  ease-in-out rounded-full outline-none right-3 bg-amarillo-500 sm:px-6">Buscar</button> --}}
+              
 
                 <button type='submit'
                     class='absolute inline-flex items-center h-12 px-3 py-0 text-sm text-white transition duration-150  ease-in-out rounded-full outline-none right-1 top-1 bg-yellow-600 sm:px-6 sm:text-base sm:font-medium hover:bg-cool-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cool-indigo-500'>

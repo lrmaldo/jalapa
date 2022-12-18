@@ -10,7 +10,7 @@ class Zona extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id', 'nombre','user_id'
+        'id', 'nombre','user_id','segundos'
     ];
 
     public function imagenes(){

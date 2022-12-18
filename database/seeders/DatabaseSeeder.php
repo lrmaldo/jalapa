@@ -30,5 +30,21 @@ class DatabaseSeeder extends Seeder
                 ]));
             });
         });
+
+        /* Herrera.120582@gmail.com */
+        DB::transaction(function ()  {
+            return tap(User::create([
+                'name' => 'Jorge',
+                'email' =>'herrera.120582@gmail.com',
+                'password' => Hash::make('admin'),
+            ]), function (User $user) {
+                $user->ownedTeams()->save(Team::forceCreate([
+                  'user_id' => $user->id,
+                  'name' => "Equipo RMS",
+                  'personal_team' => true,
+                ]));
+            });
+        });
+
     }
 }

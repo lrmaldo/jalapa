@@ -18,8 +18,8 @@
     <meta property="og:url" content="{{url()->full()}}">
     <meta property="og:title" content="{{$producto->nombre}}">
     <meta property="og:type" content="article">
-    <meta property="og:description" content="{{$producto->descripcion}}">
-    <meta property="og:site_name" content="Test">
+    <meta property="og:description" content="{{$producto->descripcion}} - ${{number_format($producto->precio,2)}}">
+    <meta property="og:site_name" content="RMS">
     <meta property="og:image" content="{{ asset($producto->imagen_url) }}">
     <meta name="site_name" content="RMS">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -86,7 +86,7 @@
                                     <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                                         href="/?type=kit">Agenda</a>
                                     <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                                        href="/?price=free">Blog</a>
+                                        href="/blogs">Blog</a>
                                     @if (Route::has('login'))
 
                                         @auth
@@ -122,7 +122,7 @@
                                             <input
                                                 class="w-full pl-10 pr-24 py-3.5 border-0 bg-gray-100 border-transparent rounded-full leading-5 transition duration-150 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-1 focus:ring-rojo-200 focus:border-rojo-200 sm:text-sm"
                                                required="required"
-                                                placeholder="Reciba Notificaciones " autocomplete="email" type="email"
+                                                placeholder="Reciba Notificaciones " type="email"
                                                 name="email" id="email" />
                                             <button type='submit'
                                                 class='absolute inline-flex items-center h-10 px-4 py-2 text-sm text-white transition duration-150  ease-in-out rounded-full outline-none right-1 top-1 bg-amarillo-600 md:px-6 sm:font-medium hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500'>
@@ -224,6 +224,10 @@
 
 
                         <main class="px-4 mx-auto mt-10 max-w-7xl sm:mt-14">
+
+                            <div class="block mb-8">
+                                <a href="{{ url()->previous() }}" class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Regresar</a>
+                            </div>
                             {{-- carrusel --}}
                             <div class=" mx-auto w-80 max-h-50">
                                 <img src="{{$producto->imagen_url}}" class="block w-full"

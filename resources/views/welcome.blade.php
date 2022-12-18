@@ -8,21 +8,21 @@
     <title>RMS</title>
 
     <!-- Fonts -->
-    <meta name="description" content="test">
+    <meta name="description" content="Sitio web Oficial RMS - San Felipe Jalapa de Díaz">
     {{-- <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@tailwindawesome">
 <meta name="twitter:title" content="Tailwind Awesome">
 <meta name="twitter:description" content="A curated directory of the best Tailwind templates and UI kits to kickstart your next design.">
 <meta name="twitter:creator" content="@tailwindawesome">
 <meta name="twitter:image" content="{{asset('img/logo.jpg')}}"> --}}
-    <meta property="og:url" content="{{URL::to('/')}}">
-    <meta property="og:title" content="test">
-    <meta property="og:type" content="article">
-    <meta property="og:description" content="test">
-    <meta property="og:site_name" content="Test">
-    <meta property="og:image" content="{{ asset('img/logo.jfif') }}">
-    <meta name="site_name" content="Poner">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta property="og:url" content="{{url()->full()}}">
+<meta property="og:title" content="RMS - San Felipe Jalapa de Díaz">
+<meta property="og:type" content="article">
+<meta property="og:description" content="Sitio web Oficial RMS - San Felipe Jalapa de Díaz">
+<meta property="og:site_name" content="RMS">
+<meta property="og:image" content="{{ asset('img/logo.jfif') }}">
+<meta name="site_name" content="RMS - San Felipe Jalapa de Díaz ">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 
 
