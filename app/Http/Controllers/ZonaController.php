@@ -134,7 +134,7 @@ class ZonaController extends Controller
         return view('frontend.hotspot.index',compact('zona'));
      }
      public function alogin($id){
-        return 0;
+        return url();
      }
 
 
