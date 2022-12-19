@@ -3,6 +3,9 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Tienda: ' . $tienda->nombre) }}
         </h2>
+        <div class="block mb-2 mt-3">
+            <a href="{{ url()->previous() }}" class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Regresar</a>
+        </div>
     </x-slot>
 
     <script>

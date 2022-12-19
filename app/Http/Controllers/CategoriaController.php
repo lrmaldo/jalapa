@@ -15,7 +15,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        return view('backend.tiendas.categorias.index');
+        return view('backend.categorias.index');
     }
 
     /**

@@ -4,9 +4,13 @@
             {{ __('Tiendas') }}
         </h2>
     </x-slot>
-
+  
     <div class="py-12">
+       
         <div class="max-w-7xl mx-auto sm:px-5 lg:px-4">
+            <div class="block mb-4">
+                <a href="{{ url()->previous() }}" class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Regresar</a>
+            </div>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mx-1 p-3">
               
 
