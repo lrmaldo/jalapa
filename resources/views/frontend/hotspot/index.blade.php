@@ -248,7 +248,7 @@
                                     <h1
                                         class="text-3xl font-extrabold tracking-tight text-gray-900 font-display sm:text-3xl md:text-3xl xl:text-3xl">
                                         {{--  <span class="block xl:inline">Discover the best</span> --}}
-                                        <span class="block text-amarillo-600">Internet Gratis</span>
+                                        <span class="block text-amarillo-600">Internet por fichas</span>
                                     </h1>
                                     <div class="text-center">
                                         {{--  <span class="block text-md font-medium text-amarillo-300">Internet Gratis </span> --}}

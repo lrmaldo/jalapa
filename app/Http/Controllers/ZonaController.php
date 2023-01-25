@@ -128,7 +128,7 @@ class ZonaController extends Controller
      public function hotspot_zona($id){
         #$imagenes = Zona::where('id',$id)->where('is_active',1)->get()->imagenes()->shuffle();
         $zona = Zona::with('imagenes')->where('id',$id)->whereHas('imagenes',function ($query) {
-            $query->where('is_active',1);
+            $query->where('is_active',1); 
         })->first();
         //return $zona;
         return view('frontend.hotspot.index',compact('zona'));
