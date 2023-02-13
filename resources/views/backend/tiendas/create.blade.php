@@ -26,12 +26,12 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeDuXh_a0n8E4JFkPx9-XOs4643Awj3Go&callback=initMap&v=weekly"></script>
 
     <script>
-        mapa = {
-            map: false,
-            marker: false,
-            initMap: function() {
-                // Creamos un objeto mapa y especificamos el elemento DOM donde se va a mostrar. 18.0709008,-96.5349083
-                mapa.map = new google.maps.Map(document.getElementById('mapa'), {
+
+
+        let mapa ;
+
+        initMap = () =>{
+            mapa = new google.maps.Map(document.getElementById('mapa'), {
                     center: {
                         lat: 18.0709008,
                         lng: -96.5349083
@@ -59,33 +59,9 @@
                     document.getElementById("lat").value = this.getPosition().lat();
                     document.getElementById("long").value = this.getPosition().lng();
                 });
-            },
-            // función que se ejecuta al pulsar el botón buscar dirección
-            getCoords: function() {
-                // Creamos el objeto geodecoder
-                var geocoder = new google.maps.Geocoder();
-                address = document.getElementById('search').value;
-                document.getElementById("coordenadas").innerHTML = 'Coordenadas:   ' + results[0].geometry.location
-                    .lat() + ', ' + results[0].geometry.location.lng();
-                if (address != '') {
-                    // Llamamos a la función geodecode pasandole la dirección que hemos introducido en la caja de texto.
-                    geocoder.geocode({
-                        'address': address
-                    }, function(results, status) {
-                        if (status == 'OK') {
-                            // Mostramos las coordenadas obtenidas en el p con id coordenadas
-                            document.getElementById("coordenadas").innerHTML = 'Coordenadas:   ' + results[
-                                0].geometry.location.lat() + ', ' + results[0].geometry.location.lng();
-                            // Posicionamos el marcador en las coordenadas obtenidas
-                            mapa.marker.setPosition(results[0].geometry.location);
-                            // Centramos el mapa en las coordenadas obtenidas
-                            mapa.map.setCenter(mapa.marker.getPosition());
-                            agendaForm.showMapaEventForm();
-                        }
-                    });
-                }
-            }
         }
+        window.onload = initMap;
+       
     </script>
     
 
