@@ -72,12 +72,12 @@
         var latitude2 = {!! json_encode($tienda->latitude) !!};
         var longitude2 = {!! json_encode($tienda->longitude) !!};
 
-        const  mapa = {
+        const  maps = {
             map: false,
             marker: false,
             initMap: function() {
                 // Creamos un objeto mapa y especificamos el elemento DOM donde se va a mostrar. 18.0709008,-96.5349083
-                mapa.map = new google.maps.Map(document.getElementById('mapa'), {
+                maps.map = new google.maps.Map(document.getElementById('mapa'), {
                     center: {
                         lat: 18.0709008,
                         lng: -96.5349083
@@ -90,7 +90,7 @@
                     streetViewControl: false,
                 });
                 // Creamos el marcador
-                mapa.marker = new google.maps.Marker({
+                maps.marker = new google.maps.Marker({
                     position: {
                         lat: latitude2 ? parseFloat(latitude2) : 18.0709008,
                         lng: longitude2 ? parseFloat(longitude2) : -96.5349083
@@ -99,8 +99,8 @@
                     draggable: true
                 });
                 // Le asignamos el mapa a los marcadores.
-                mapa.marker.setMap(mapa.map);
-                mapa.marker.addListener('dragend', function(event) {
+                maps.marker.setMap(maps.map);
+                maps.marker.addListener('dragend', function(event) {
                     //escribimos las coordenadas de la posicion actual del marcador dentro del input #coords
                    // document.getElementById("lat").value = this.getPosition().lat();
                     //document.getElementById("long").value = this.getPosition().lng();
@@ -110,7 +110,7 @@
            
         }
 
-        window.onload = mapa.initMap;
+        window.onload = maps.initMap;
     </script>
 
 
