@@ -31,7 +31,7 @@ class Tienda extends Component
 
             if(!is_null($catSelect)){
                #dd($this->select_categoria);
-               dd($catSelect);
+               #dd($catSelect);
                $query->where('categoria_id',$catSelect);
               
             }

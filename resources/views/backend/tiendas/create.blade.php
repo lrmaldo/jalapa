@@ -23,7 +23,7 @@
     </style>
     
         <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDS9ZIrYxrNhDYACm11Vxaw1c_jhpsvMk"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDS9ZIrYxrNhDYACm11Vxaw1c_jhpsvMk&callback=initMap&v=weekly"></script>
 
     <script>
         mapa = {
