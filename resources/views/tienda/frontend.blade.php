@@ -72,7 +72,7 @@
         var latitude2 = {!! json_encode($tienda->latitude) !!};
         var longitude2 = {!! json_encode($tienda->longitude) !!};
 
-        mapa = {
+        let mapa = {
             map: false,
             marker: false,
             initMap: function() {
@@ -109,6 +109,8 @@
             // función que se ejecuta al pulsar el botón buscar dirección
            
         }
+
+        window.onload = mapa.initMap;
     </script>
 
 
