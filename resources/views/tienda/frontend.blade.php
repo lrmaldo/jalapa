@@ -46,7 +46,7 @@
     @livewireStyles
 </head>
 
-<body class="antialiased" onload="mapa.initMap()">
+<body class="antialiased" >
     <style>
         .map-responsive {
             overflow: hidden;
@@ -66,7 +66,7 @@
     </style>
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDS9ZIrYxrNhDYACm11Vxaw1c_jhpsvMk&callback=initMap&v=weekly"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeDuXh_a0n8E4JFkPx9-XOs4643Awj3Go&callback=initMap&v=weekly"></script>
 
     <script>
         var latitude2 = {!! json_encode($tienda->latitude) !!};
@@ -102,35 +102,12 @@
                 mapa.marker.setMap(mapa.map);
                 mapa.marker.addListener('dragend', function(event) {
                     //escribimos las coordenadas de la posicion actual del marcador dentro del input #coords
-                    document.getElementById("lat").value = this.getPosition().lat();
-                    document.getElementById("long").value = this.getPosition().lng();
+                   // document.getElementById("lat").value = this.getPosition().lat();
+                    //document.getElementById("long").value = this.getPosition().lng();
                 });
             },
             // función que se ejecuta al pulsar el botón buscar dirección
-            getCoords: function() {
-                // Creamos el objeto geodecoder
-                var geocoder = new google.maps.Geocoder();
-                address = document.getElementById('search').value;
-                document.getElementById("coordenadas").innerHTML = 'Coordenadas:   ' + results[0].geometry.location
-                    .lat() + ', ' + results[0].geometry.location.lng();
-                if (address != '') {
-                    // Llamamos a la función geodecode pasandole la dirección que hemos introducido en la caja de texto.
-                    geocoder.geocode({
-                        'address': address
-                    }, function(results, status) {
-                        if (status == 'OK') {
-                            // Mostramos las coordenadas obtenidas en el p con id coordenadas
-                            document.getElementById("coordenadas").innerHTML = 'Coordenadas:   ' + results[
-                                0].geometry.location.lat() + ', ' + results[0].geometry.location.lng();
-                            // Posicionamos el marcador en las coordenadas obtenidas
-                            mapa.marker.setPosition(results[0].geometry.location);
-                            // Centramos el mapa en las coordenadas obtenidas
-                            mapa.map.setCenter(mapa.marker.getPosition());
-                            agendaForm.showMapaEventForm();
-                        }
-                    });
-                }
-            }
+           
         }
     </script>
 
