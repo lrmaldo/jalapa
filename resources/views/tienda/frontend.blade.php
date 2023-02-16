@@ -72,7 +72,7 @@
         var latitude2 = {!! json_encode($tienda->latitude) !!};
         var longitude2 = {!! json_encode($tienda->longitude) !!};
 
-        let  maps = {
+        var  maps = {
             map: false,
             marker: false,
             initMap: function() {
@@ -148,7 +148,7 @@
             initMap();
         };
 
-        
+
     </script>
 
 
