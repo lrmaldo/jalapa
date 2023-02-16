@@ -110,7 +110,43 @@
            
         }
 
-        window.onload = maps.initMap;
+        let initMap = ()=>{
+            
+                // Creamos un objeto mapa y especificamos el elemento DOM donde se va a mostrar. 18.0709008,-96.5349083
+                maps.map = new google.maps.Map(document.getElementById('mapa'), {
+                    center: {
+                        lat: 18.0709008,
+                        lng: -96.5349083
+                    },
+                    scrollwheel: false,
+                    zoom: 15,
+                    zoomControl: true,
+                    rotateControl: false,
+                    mapTypeControl: true,
+                    streetViewControl: false,
+                });
+                // Creamos el marcador
+                maps.marker = new google.maps.Marker({
+                    position: {
+                        lat: latitude2 ? parseFloat(latitude2) : 18.0709008,
+                        lng: longitude2 ? parseFloat(longitude2) : -96.5349083
+                    },
+
+                    draggable: true
+                });
+                // Le asignamos el mapa a los marcadores.
+                maps.marker.setMap(maps.map);
+                maps.marker.addListener('dragend', function(event) {
+                    //escribimos las coordenadas de la posicion actual del marcador dentro del input #coords
+                   // document.getElementById("lat").value = this.getPosition().lat();
+                    //document.getElementById("long").value = this.getPosition().lng();
+                });
+            
+        }
+
+        window.onload = function() {
+            initMap();
+        };
     </script>
 
 
