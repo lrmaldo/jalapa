@@ -147,6 +147,8 @@
         window.onload = function() {
             initMap();
         };
+
+        
     </script>
 
 
