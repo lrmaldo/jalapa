@@ -296,8 +296,8 @@
                                                 cursor: default;
                                             }
                                         </style>
-                                        <a href="#"class="flex justify-center w-80 mx-auto px-4 py-2 my-3 text-sm font-medium text-white bg-amarillo-600 border border-transparent rounded-md shadow-sm hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500 not-active"
-                                            id="boton_gratis"><span id="countdown"></span></a>
+                                       {{--  <a href="#"class="flex justify-center w-80 mx-auto px-4 py-2 my-3 text-sm font-medium text-white bg-amarillo-600 border border-transparent rounded-md shadow-sm hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500 not-active"
+                                            id="boton_gratis"><span id="countdown"></span></a> --}}
                                     </div>
                                     <label for="user" class="block text-sm font-medium text-gray-700"> User
                                     </label>
