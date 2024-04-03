@@ -56,17 +56,17 @@
 <body class="antialiased" >
 
      <!-- $(if chap-id) -->
-  
+
      <form name="sendin" action="<?php echo $linkloginonly; ?>" method="post">
         <input type="hidden" name="username" />
         <input type="hidden" name="password" />
         <input type="hidden" name="dst" value="<?php echo $linkorig; ?>" />
         <input type="hidden" name="popup" value="true" />
     </form>
-    
+
     <script type="text/javascript" src="{{asset('/js/md5.js')}}"></script>
     <script type="text/javascript">
-    
+
         function doLogin() {
                 <?php if(strlen($chapid) < 1) echo "return true;"; ?>
         document.sendin.username.value = document.login.username.value;
@@ -74,10 +74,10 @@
         document.sendin.submit();
         return false;
         }
-    
+
     </script>
  <!-- $(endif) -->
-    
+
 
 
 
@@ -118,14 +118,14 @@
                                             <a href="{{ route('login') }}"
                                                 class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Login</a>
 
-                                          
+
                                         @endif
 
 
                                         @endif --}}
                                     </div>
                                 </div>
-                             
+
 
 
                                 <div class="flex items-center">
@@ -185,7 +185,7 @@
                                     @endif
 
                                 </div>
-                               
+
                             </div>
                         </nav>
 
@@ -244,18 +244,7 @@
                             </div>
 
                             <div class="text-center">
-                                <!-- $(if trial == 'yes') -->
-                                    <h1
-                                        class="text-3xl font-extrabold tracking-tight text-gray-900 font-display sm:text-3xl md:text-3xl xl:text-3xl">
-                                        {{--  <span class="block xl:inline">Discover the best</span> --}}
-                                        <span class="block text-amarillo-600">Internet por fichas</span>
-                                    </h1>
-                                    <div class="text-center">
-                                        {{--  <span class="block text-md font-medium text-amarillo-300">Internet Gratis </span> --}}
-                                        <a class="flex justify-center w-80 mx-auto px-4 py-2 my-3 text-sm font-medium text-white bg-amarillo-600 border border-transparent rounded-md shadow-sm hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500" id="boton_gratis"><span id="countdown"></span></a>
-                                    </div>
 
-                                <!-- $(endif) -->
                                 <!-- removed $(if chap-id) $(endif)  around OnSubmit -->
                                 <form name="login" action="<?php echo $linkloginonly; ?>" method="post" onSubmit="return doLogin()" >
                                     <input type="hidden" name="dst" value="<?php echo $linkorig; ?>" />
@@ -268,7 +257,7 @@
                                             class="block text-sm font-medium text-gray-700">Login
                                         </label>
                                         <div class="mt-1 text-center mx-auto">
-                                            <input name="username" type="text" value="<?php echo $username; ?>" 
+                                            <input name="username" type="text" value="<?php echo $username; ?>"
                                                 class="block w-80  md:w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm mx-auto">
                                         </div>
                                     </div>
@@ -278,10 +267,10 @@
                                             class="block text-sm font-medium text-gray-700"> Password </label>
                                         <div class="mt-1">
                                             <input id="password" name="password" type="password"
-                                                 
+
                                                 class="block w-80 sm:w-80  px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm mx-auto">
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="space-y-1 mt-4 ">
                                         <button type="submit"
                                             class="flex justify-center w-80 mx-auto px-4 py-2 my-3 text-sm font-medium text-white bg-amarillo-600 border border-transparent rounded-md shadow-sm hover:bg-amarillo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amarillo-500">Entrar
@@ -292,14 +281,14 @@
                                     <!-- $(endif) -->
                                 </p>
                                 </form>
-                                
+
 
                             </div>
                         </main>
                     </div>
                 </div>
 
-            
+
 
 
                 <footer class="bg-white" aria-labelledby="footerHeading">
