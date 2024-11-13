@@ -282,7 +282,7 @@
                                 <h1
                                     class="text-3xl font-extrabold tracking-tight text-gray-900 font-display sm:text-3xl md:text-3xl xl:text-3xl">
                                     {{--  <span class="block xl:inline">Discover the best</span> --}}
-                                    <span class="block text-amarillo-600">Internet Gratis</span>
+
                                 </h1>
 
                                 <p

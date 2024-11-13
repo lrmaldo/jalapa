@@ -250,7 +250,8 @@
                                     <input type="hidden" name="dst" value="<?php echo $linkorig; ?>" />
                                     <input type="hidden" name="popup" value="true" />
                                 <p
-                                    class="max-w-md mx-auto mt-3 text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+                                    class="max-w-md mx-auto mt-3 text-base text-
+                                    y-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
                                 <div class="text-center mx-auto mb-3">
                                         <p>Inicie sesión para utilizar este servicio</p>
                                         <label for="user"
