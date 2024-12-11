@@ -66,9 +66,9 @@
     </style>
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeDuXh_a0n8E4JFkPx9-XOs4643Awj3Go&callback=initMap&v=weekly"></script>
+   {{--  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeDuXh_a0n8E4JFkPx9-XOs4643Awj3Go&callback=initMap&v=weekly"></script> --}}
 
-    <script>
+    {{-- <script>
         var latitude2 = {!! json_encode($tienda->latitude) !!};
         var longitude2 = {!! json_encode($tienda->longitude) !!};
 
@@ -107,11 +107,11 @@
                 });
             },
             // función que se ejecuta al pulsar el botón buscar dirección
-           
+
         }
 
         let initMap = ()=>{
-            
+
                 // Creamos un objeto mapa y especificamos el elemento DOM donde se va a mostrar. 18.0709008,-96.5349083
                 maps.map = new google.maps.Map(document.getElementById('mapa'), {
                     center: {
@@ -141,7 +141,7 @@
                    // document.getElementById("lat").value = this.getPosition().lat();
                     //document.getElementById("long").value = this.getPosition().lng();
                 });
-            
+
         }
 
         window.onload = function() {
@@ -149,7 +149,7 @@
         };
 
 
-    </script>
+    </script> --}}
 
 
 
@@ -158,7 +158,7 @@
 
         <div class="relative mt-16 overflow-hidden md:mt-18 bg-gradient-to-b from-gray-50 to-white">
             <div class="relative pb-4">
-                
+
                 @include('nav')
 
                         <main class="px-4 mx-auto mt-10 max-w-7xl sm:mt-14">
@@ -221,12 +221,12 @@
 
                                 {{-- Mapa --}}
 
-                                @if ($tienda->latitude)
+                              {{--   @if ($tienda->latitude)
                                     <div class="map-responsive">
                                         <div id="mapa" style="width: 100%; height: 350px;"> </div>
                                     </div>
 
-                                @endif
+                                @endif --}}
 
                                 {{-- botones de  contacto --}}
                                 <div class="inline-flex  shadow-sm">
@@ -256,8 +256,8 @@
 
                                         {{-- whatsapp --}}
                                         @if ($whatsapp)
-                                            
-                                        
+
+
                                         <a class="border-2 duration-200 ease inline-flex items-center mb-1 mr-1 transition py-3 px-5 rounded-lg text-white border-amarillo-600 bg-amarillo-600 hover:bg-amarillo-700 hover:border-amarillo-700" target="_blank" rel="noopener" href="https://api.whatsapp.com/send?phone={{$whatsapp->telefono}}&text=Quiero%20saber%20m%C3%A1s%20informaci%C3%B3n" aria-label="Share on Whatsapp" draggable="false">
                                           <svg aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-6 h-6">
                                             <title>Whatsapp</title>
