@@ -51,7 +51,7 @@ class TiendaController extends Controller
      */
     public function store(StoreTiendaRequest $request)
     {
-        $url_img = null;
+
         if ($request->hasFile('logo_url')) {
             $img = $request->file('logo_url');
 
@@ -61,18 +61,19 @@ class TiendaController extends Controller
                 $constraint->aspectRatio();
                 $constraint->upsize();
             })->orientate();
-            $img->stream();
-            $path = $request->file('logo_url')->store('images', 'public');
-            Storage::disk('public')->put($path, $img->__toString());
-            $url_img = "/storage/" . $path;
+            $img->encode('jpg');
+            $nombre_imagen = 'logo_' . Uuid::uuid4() . '.jpg';
+
+            Storage::put('public/images/' . $nombre_imagen, $img, 'public');
+
         }
 
         $tienda = Tienda::create([
             'nombre'=> $request->nombre,
             'direccion' => $request->direccion,
-            'latitude'=> $request->lat,
-            'longitude' =>$request->long,
-            'logo_url'=> $url_img,
+            /* 'latitude'=> $request->lat,
+            'longitude' =>$request->long, */
+            'logo_url'=> $request->hasFile('logo_url') ? '/storage/images/' . $nombre_imagen : null,
             'facebook_url'=>$request->facebook_url,
             'tipo_tienda'=>$request->tipo_tienda,
             'categoria_id' =>$request->categoria_id,
@@ -123,8 +124,8 @@ class TiendaController extends Controller
         $tienda->update([
             'nombre'=> $request->nombre,
             'direccion' => $request->direccion,
-            'latitude'=> $request->lat,
-            'longitude' =>$request->long,
+            /* 'latitude'=> $request->lat,
+            'longitude' =>$request->long, */
             'facebook_url'=>$request->facebook_url,
             'tipo_tienda'=>$request->tipo_tienda,
             'categoria_id' =>$request->categoria_id,
@@ -134,24 +135,23 @@ class TiendaController extends Controller
         if ($request->hasFile('logo_url')) {
             $img = $request->file('logo_url');
 
+            /* eliminar la imagen anterior si es que lo tiene */
             if (!empty($tienda->logo_url)) {
                 Storage::delete(Str::replace('/storage', '/public', $tienda->logo_url));
             }
+        /* comprimir la nueva imagen */
+        $img = Image::make($img->getRealPath());
+        $img->resize(1000, null, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        })->orientate();
+        $img->encode('jpg');
+        $nombre_imagen = 'logo_' . Uuid::uuid4() . '.jpg';
 
-            /* comprimir imagen */
-            $img = Image::make($img->getRealPath());
-            $img->resize(1000, null, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->orientate();
-            $img->stream();
-            $path = $request->file('logo_url')->store('images', 'public');
-            Storage::disk('public')->put($path, $img->__toString());
-            $url_img = "/storage/" . $path;
+        Storage::put('public/images/' . $nombre_imagen, $img, 'public');
 
-            $tienda->update([
-                'logo_url' => $url_img
-            ]);
+        $tienda->update(['logo_url' => '/storage/images/' . $nombre_imagen]);
+
         }
 
         return redirect()->route('tiendas.index')->with('message', "Tienda actualizada");
