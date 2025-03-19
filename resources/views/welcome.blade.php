@@ -25,6 +25,8 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Alpine.js si no está ya incluido en el stack -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @livewireStyles
 </head>
 
@@ -37,54 +39,60 @@
 
                 <!-- Hero Content -->
                 <main class="relative z-10">
-                    <!-- Carrusel Mejorado -->ija y mejor manejo de imágenes -->
-                    <div class="relative h-[70vh] overflow-hidden">h-[600px] overflow-hidden">
-                        <div id="carouselExampleCrossfade" class="carousel slide carousel-fade relative h-full" data-bs-ride="carousel">
-                            <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-6 z-10">
-                                <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="0"
-                                class="active w-3 h-3 rounded-full bg-white mx-2 hover:bg-amber-400 transition-all duration-300"
-                                aria-label="Slide 1"></button>
-                                @forelse ($carruseles as $key => $item)
-                                <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="{{$key+1}}"
-                                class="w-3 h-3 rounded-full bg-white mx-2 hover:bg-amber-400 transition-all duration-300"
-                                aria-current="true" aria-label="Slide {{$key+1}}"></button>
-                                @empty
-                                @endforelse
-                            </div>
+                    <!-- Nuevo Carrusel con Alpine.js -->
+                    <div x-data="carousel()"
+                         class="relative h-[500px] sm:h-[550px] md:h-[600px] overflow-hidden">
+                        <!-- Overlay para oscurecer las imágenes -->
+                        <div class="absolute inset-0 bg-black/40 z-10"></div>
 
-                            <div class="carousel-inner relative w-full h-full overflow-hidden">
-                                <div class="carousel-item active float-left w-full h-full">
-                                    <div class="absolute inset-0 bg-black/40 z-10"></div>
-                                    <img src="{{asset('img/jaca_fondo.jfif')}}" class="block w-full h-full object-cover"
-                                    alt="Wild Landscape" />l h-full object-cover object-center"
-                                    <div class="absolute inset-0 flex items-center justify-center z-20">
-                                        <div class="text-center px-4 max-w-3xl mx-auto">fy-center z-20">
-                                        <div class="text-center px-4 max-w-3xl mx-auto">
-                                            <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white drop-shadow-lg">
-                                                <span class="block text-amber-400">RMS</span>
-                                                <span class="block text-3xl md:text-4xl mt-2">Tecnología y Comunicaciones</span>
-                                            </h1>
-                                            <p class="text-lg md:text-xl text-gray-100 max-w-lg mx-auto mb-8">
-                                                Soluciones tecnológicas innovadoras para San Felipe Jalapa de Díaz
-                                            </p>
-                                            <div>
-                                                <a href="#servicios" class="inline-block px-6 py-3 bg-amber-500 text-white rounded-lg font-medium hover:bg-amber-600 transition-all duration-300 mr-4">
-                                                    Nuestros Servicios
-                                                </a>
-                                                <a href="#contacto" class="inline-block px-6 py-3 bg-transparent border-2 border-white text-white rounded-lg font-medium hover:bg-white hover:text-gray-900 transition-all duration-300">
-                                                    Contactar
-                                                </a>
-                                            </div>
+                        <!-- Slides -->
+                        <div class="relative h-full">
+                            <!-- Slide Inicial -->
+                            <div x-show="activeSlide === 0"
+                                 x-transition:enter="transition ease-out duration-500"
+                                 x-transition:enter-start="opacity-0 transform scale-105"
+                                 x-transition:enter-end="opacity-100 transform scale-100"
+                                 x-transition:leave="transition ease-in duration-500"
+                                 x-transition:leave-start="opacity-100 transform scale-100"
+                                 x-transition:leave-end="opacity-0 transform scale-95"
+                                 class="absolute inset-0">
+
+                                <div class="absolute inset-0 flex items-center justify-center z-20">
+                                    <div class="text-center px-4 max-w-3xl mx-auto">
+                                        <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white drop-shadow-lg">
+                                            <span class="block text-amber-400">RMS</span>
+                                            <span class="block text-3xl md:text-4xl mt-2">Tecnología y Comunicaciones</span>
+                                        </h1>
+                                        <p class="text-lg md:text-xl text-gray-100 max-w-lg mx-auto mb-8">
+                                            Soluciones tecnológicas innovadoras para San Felipe Jalapa de Díaz
+                                        </p>
+                                        <div>
+                                            <a href="#servicios" class="inline-block px-6 py-3 bg-amber-500 text-white rounded-lg font-medium hover:bg-amber-600 transition-all duration-300 mr-4">
+                                                Nuestros Servicios
+                                            </a>
+                                            <a href="#contacto" class="inline-block px-6 py-3 bg-transparent border-2 border-white text-white rounded-lg font-medium hover:bg-white hover:text-gray-900 transition-all duration-300">
+                                                Contactar
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
 
-                                @forelse ($carruseles as $key => $item)
-                                <div class="carousel-item float-left w-full h-full">
-                                    <div class="absolute inset-0 bg-black/40 z-10"></div>
-                                    <img src="{{asset($item->imagen_url)}}" 
-                                         class="block w-full h-full object-cover object-center"
-                                         alt="Img-{{$item->id}}" />
+                                <img src="{{asset('img/jaca_fondo.jfif')}}"
+                                     class="w-full h-full object-cover object-center"
+                                     alt="RMS Tecnología y Comunicaciones" />
+                            </div>
+
+                            <!-- Slides dinámicos -->
+                            @foreach($carruseles as $key => $item)
+                                <div x-show="activeSlide === {{ $key + 1 }}"
+                                     x-transition:enter="transition ease-out duration-500"
+                                     x-transition:enter-start="opacity-0 transform scale-105"
+                                     x-transition:enter-end="opacity-100 transform scale-100"
+                                     x-transition:leave="transition ease-in duration-500"
+                                     x-transition:leave-start="opacity-100 transform scale-100"
+                                     x-transition:leave-end="opacity-0 transform scale-95"
+                                     class="absolute inset-0">
+
                                     <div class="absolute inset-0 flex items-center justify-center z-20">
                                         <div class="text-center px-4">
                                             <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
@@ -95,23 +103,39 @@
                                             </p>
                                         </div>
                                     </div>
-                                </div>
-                                @empty
-                                @endforelse
-                            </div>
 
-                            <button
-                                class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
-                                type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon inline-block bg-no-repeat bg-contain w-10 h-10" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
+                                    <img src="{{asset($item->imagen_url)}}"
+                                         class="w-full h-full object-cover object-center"
+                                         alt="Img-{{$item->id}}" />
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Controles del carrusel -->
+                        <div class="absolute inset-0 flex items-center justify-between z-20">
+                            <button @click="prevSlide" class="p-2 bg-black/30 text-white rounded-r-md hover:bg-black/50 focus:outline-none ml-2">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
                             </button>
-                            <button
-                                class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
-                                type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide="next">
-                                <span class="carousel-control-next-icon inline-block bg-no-repeat bg-contain w-10 h-10" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
+
+                            <button @click="nextSlide" class="p-2 bg-black/30 text-white rounded-l-md hover:bg-black/50 focus:outline-none mr-2">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
                             </button>
+                        </div>
+
+                        <!-- Indicadores -->
+                        <div class="absolute bottom-4 left-0 right-0 flex justify-center z-20">
+                            <button @click="activeSlide = 0" :class="{ 'bg-white': activeSlide === 0, 'bg-white/50': activeSlide !== 0 }"
+                                class="w-3 h-3 mx-1 rounded-full transition-colors duration-300 hover:bg-white"></button>
+
+                            @foreach($carruseles as $key => $item)
+                                <button @click="activeSlide = {{ $key + 1 }}"
+                                        :class="{ 'bg-white': activeSlide === {{ $key + 1 }}, 'bg-white/50': activeSlide !== {{ $key + 1 }} }"
+                                        class="w-3 h-3 mx-1 rounded-full transition-colors duration-300 hover:bg-white"></button>
+                            @endforeach
                         </div>
                     </div>
                 </main>
@@ -199,7 +223,30 @@
     </button>
 
     <script>
-        // Mostrar/ocultar botón de regreso arriba
+        // Función del carrusel
+        function carousel() {
+            return {
+                activeSlide: 0,
+                totalSlides: {{ count($carruseles) + 1 }},
+
+                nextSlide() {
+                    this.activeSlide = (this.activeSlide + 1) % this.totalSlides;
+                },
+
+                prevSlide() {
+                    this.activeSlide = (this.activeSlide - 1 + this.totalSlides) % this.totalSlides;
+                },
+
+                // Auto avance del carrusel
+                init() {
+                    setInterval(() => {
+                        this.nextSlide();
+                    }, 5000);
+                }
+            }
+        }
+
+        // Botón de regreso arriba
         window.addEventListener('scroll', function() {
             var backToTop = document.getElementById('back-to-top');
             if (window.scrollY > 300) {
@@ -218,30 +265,6 @@
         });
     </script>
 
-    @livewireScriptsyle>
-</body>        /* Asegura que el carrusel mantenga una altura consistente */
-
-
-</html>        .carousel-item {
-            transition: transform .6s ease-in-out;
-        }
-        
-        /* Previene cambios en el diseño durante las transiciones */
-        .carousel-inner {
-            transform-style: preserve-3d;
-        }
-        
-        /* Mejora del manejo de imágenes */
-        .carousel-item img {
-            position: absolute;
-            top: 0;
-            left: 0;
-
-
-
-
-
-
-
-</html></body>    </style>        }            object-position: center;            object-fit: cover;            min-width: 100%;
-            height: 100%;
+    @livewireScripts
+</body>
+</html>
