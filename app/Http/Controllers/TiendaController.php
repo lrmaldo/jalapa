@@ -51,37 +51,33 @@ class TiendaController extends Controller
      */
     public function store(StoreTiendaRequest $request)
     {
-      #dd($request->all());
-        $url_img= null;
-      if($request->hasFile('logo_url')){
-        $img = $request->file('logo_url');
 
-        /* comprimir imagen */
-        $img = Image::make($img->getRealPath());
-        $img->resize(1000, null, function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        })->orientate();
-        $img->stream();
-        #$nameFile = Uuid::randomUUID().$request->file('logo_url').getClientOriginalName();
-        $nameFile = Str::uuid()->toString().".".$request->file('logo_url')->extension();
-        ## $request->file('logo_url')->getClientOriginalName();
-        $url_img = Storage::disk('public')->put('images/'.$nameFile,$img,'public');
-      }
-     
-      $tienda = Tienda::create([
-        'nombre'=> $request->nombre,
-        'direccion' => $request->direccion,
-        'latitude'=> $request->lat,
-        'longitude' =>$request->long,
-        'logo_url'=>!empty($url_img)?"/storage/images/".$nameFile:null,
-        'facebook_url'=>$request->facebook_url,
-        'tipo_tienda'=>$request->tipo_tienda,
-        'categoria_id' =>$request->categoria_id,
-        //'is_active' =>$request->is_active,
-      ]);
+        if ($request->hasFile('logo_url')) {
+            $img = $request->file('logo_url');
 
-      return redirect()->route('tiendas.index');
+            /* comprimir imagen */
+            $img = Image::make($img->getRealPath());
+            $img->orientate();
+            $img->encode('jpg',75);
+            $nombre_imagen = 'logo_' . Uuid::uuid4() . '.jpg';
+
+
+            $file = Storage::put('public/images/' . $nombre_imagen, $img, 'public');
+
+        }
+
+        $tienda = Tienda::create([
+            'nombre'=> $request->nombre,
+            'direccion' => $request->direccion,
+            /* 'latitude'=> $request->lat,
+            'longitude' =>$request->long, */
+            'logo_url'=> $request->hasFile('logo_url') ?Storage::url($file) : null,
+            'facebook_url'=>$request->facebook_url,
+            'tipo_tienda'=>$request->tipo_tienda,
+            'categoria_id' =>$request->categoria_id,
+        ]);
+
+        return redirect()->route('tiendas.index');
     }
 
     /**
@@ -122,43 +118,41 @@ class TiendaController extends Controller
      */
     public function update(UpdateTiendaRequest $request, Tienda $tienda)
     {
-        $url_img= null;
+        $url_img = $tienda->logo_url;
         $tienda->update([
             'nombre'=> $request->nombre,
             'direccion' => $request->direccion,
-            'latitude'=> $request->lat,
-            'longitude' =>$request->long,
-            //'logo_url'=>!empty($url_img)?"/storage/images/".$nameFile:null,
+            /* 'latitude'=> $request->lat,
+            'longitude' =>$request->long, */
             'facebook_url'=>$request->facebook_url,
             'tipo_tienda'=>$request->tipo_tienda,
             'categoria_id' =>$request->categoria_id,
-            'is_active' =>$request->is_active?1:0,
+            'is_active' =>$request->is_active ? 1 : 0,
         ]);
-      if($request->hasFile('logo_url')){
-        $img = $request->file('logo_url');
 
-        !empty($tienda->logo_url)? Storage::delete(Str::replace('/storage','/public',$tienda->logo_url)):null;
+        if ($request->hasFile('logo_url')) {
+            $img = $request->file('logo_url');
 
-        /* comprimir imagen */
+            /* eliminar la imagen anterior si es que lo tiene */
+            if (!empty($tienda->logo_url)) {
+                Storage::delete(Str::replace('/storage', '/public', $tienda->logo_url));
+            }
+        /* comprimir la nueva imagen */
         $img = Image::make($img->getRealPath());
         $img->resize(1000, null, function ($constraint) {
             $constraint->aspectRatio();
             $constraint->upsize();
         })->orientate();
-        $img->stream();
-        #$nameFile = Uuid::randomUUID().$request->file('logo_url').getClientOriginalName();
-        $nameFile = Str::uuid()->toString().".".$request->file('logo_url')->extension();
-        ## $request->file('logo_url')->getClientOriginalName();
-        $url_img = Storage::disk('public')->put('images/'.$nameFile,$img,'public');
+        $img->encode('jpg');
+        $nombre_imagen = 'logo_' . Uuid::uuid4() . '.jpg';
 
-        $tienda->update([
-            'logo_url' => "/storage/images/".$nameFile
-        ]);
-      }
-        
-       
-       // $request->session()->put('success',"tienda actualizada");
-        return redirect()->route('tiendas.index')->with('message',"Tienda actualizada");
+        Storage::put('public/images/' . $nombre_imagen, $img, 'public');
+
+        $tienda->update(['logo_url' => '/storage/images/' . $nombre_imagen]);
+
+        }
+
+        return redirect()->route('tiendas.index')->with('message', "Tienda actualizada");
     }
 
     /**
@@ -169,10 +163,12 @@ class TiendaController extends Controller
      */
     public function destroy(Tienda $tienda)
     {
-        !empty($tienda->logo_url)? Storage::delete(Str::replace('/storage','/public',$tienda->logo_url)):null;
-        
-       $tienda->delete();
-        return Response::json('Eliminado correctamente',200);
+        if (!empty($tienda->logo_url)) {
+            Storage::delete(Str::replace('/storage', '/public', $tienda->logo_url));
+        }
+
+        $tienda->delete();
+        return Response::json('Eliminado correctamente', 200);
     }
 
     public function vista_frontend($id){
@@ -214,7 +210,7 @@ class TiendaController extends Controller
             return $data->is_active ?
             '<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full  bg-green-100 text-green-500">Activo</span>'
              : '<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full  bg-red-100 text-red-500">Suspendido</span>';
-             
+
         })
         ->addColumn('tipo',function($data){
             return $data->tipo_tienda;
@@ -229,7 +225,7 @@ class TiendaController extends Controller
         return datatables()->of($telefonos)
         ->addColumn('action',function($data){
 
-            
+
             $btn = '<a href="javascript:void(0);" onclick="edit_telefono(\''.$data->id.'\')" class="text-indigo-500 hover:text-indigo-700 mb-2 mr-2" >Editar </a>';
             $btn .= '<a href="javascript:void(0);" class="text-red-500 hover:text-red-900 mb-2 mr-2" onclick="eliminar_telefono(\'' . $data->id.'\');" >Eliminar </a>';
             return $btn;
