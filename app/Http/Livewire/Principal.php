@@ -8,7 +8,9 @@ use Livewire\Component;
 
 class Principal extends Component
 {
-    public $search, $select_categoria =null ,$sort = 'id', $direction ='desc';
+    public $search, $select_categoria = null, $sort = 'id', $direction = 'desc';
+    // Añadimos el listener para actualizar en tiempo real
+    protected $listeners = ['seleccionarCategoria', 'resetFilters'];
 
     public function mount(){
         //$this->tiendas = [] ;
@@ -18,40 +20,36 @@ class Principal extends Component
     {
         $buscar = $this->search;
         $categorias = Categoria::select('id','nombre')->get();
-        $catSelect = $this->select_categoria;
-        $tiendas;
-       /*  if(is_null($this->select_categoria)){ */
-            $tiendas =Tienda::where(function($query) use ($buscar) {
-                //$query->where('is_active', 1);
-                $query->orWhere('nombre', 'LIKE',"%{$buscar}%");
-               /*  dd($this->select_categoria); */
-               if(!is_null($this->select_categoria)){
-                   $query->where('categoria_id',$this->select_categoria);
 
-               }
-                
-            })
-            ->where('is_active','=',1)
-            /* ->where('categoria_id',$this->select_categoria) */
-            ->orderBy($this->sort, $this->direction)
-            ->get();
-            
+        // Mejoramos la lógica de consulta para mejor filtrado
+        $query = Tienda::where('is_active', 1);
 
-        /* } */
-        //dd($tiendas);
+        // Aplicamos filtro de búsqueda si hay texto
+        if (!empty($buscar)) {
+            $query->where('nombre', 'LIKE', "%{$buscar}%");
+        }
 
-        return view('livewire.principal',['tiendas'=>$tiendas,'categorias'=>$categorias]);
+        // Aplicamos filtro de categoría si hay una seleccionada
+        if (!is_null($this->select_categoria)) {
+            $query->where('categoria_id', $this->select_categoria);
+        }
+
+        // Ordenamos los resultados
+        $tiendas = $query->orderBy($this->sort, $this->direction)->get();
+
+        return view('livewire.principal', [
+            'tiendas' => $tiendas,
+            'categorias' => $categorias
+        ]);
     }
 
-   
-    public function seleccionarCategoria($cat){
-        /* obtiene el id de la categoria */
-        $this->select_categoria =$cat;
+    public function seleccionarCategoria($cat)
+    {
+        $this->select_categoria = $cat;
     }
 
-    public function resetFilters(){
+    public function resetFilters()
+    {
         $this->reset('select_categoria');
     }
-
-    
 }
