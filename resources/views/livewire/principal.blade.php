@@ -32,22 +32,39 @@
             </div>
 
             <div class="order-last w-full pt-4 mt-4 border-t border-gray-200 lg:border-0 lg:mt-0 lg:pt-0 lg:order-none lg:w-2/3 sm:flex sm:flex-col sm:align-center">
-                <p class="mb-2 text-center font-medium">Categorías:</p>
+                <p class="mb-2 text-center font-medium">Categorías:
+                    <span class="text-sm font-normal text-gray-500">
+                        {{ $select_categoria !== null ? '(Filtrando por: ' . collect($categorias)->firstWhere('id', $select_categoria)->nombre . ')' : '' }}
+                    </span>
+                </p>
                 <div class="relative self-center bg-gray-100 rounded-lg p-1 flex flex-wrap gap-1">
-                    <button
+                    <button type="button"
                         class="text-center {{ $select_categoria === null ? 'bg-white shadow-sm font-semibold' : 'hover:bg-gray-200' }} border-gray-200 flex justify-center relative w-auto rounded-lg py-2 px-4 text-sm text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-cool-indigo-400 focus:z-10"
-                        wire:click="resetFilters">
+                        wire:click="$set('select_categoria', null)">
                         Todos
                     </button>
 
                     @foreach($categorias as $categoria)
-                        <button
-                            class="text-center {{ $select_categoria == $categoria->id ? 'bg-white shadow-sm font-semibold' : 'hover:bg-gray-200' }} border-gray-200 flex justify-center relative w-auto rounded-lg py-2 px-4 text-sm text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-cool-indigo-400 focus:z-10"
-                            wire:click="seleccionarCategoria({{ $categoria->id }})">
+                        <button type="button"
+                            class="text-center {{ (int)$select_categoria === (int)$categoria->id ? 'bg-white shadow-sm font-semibold' : 'hover:bg-gray-200' }} border-gray-200 flex justify-center relative w-auto rounded-lg py-2 px-4 text-sm text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-cool-indigo-400 focus:z-10"
+                            wire:click="$set('select_categoria', {{ $categoria->id }})">
                             {{ $categoria->nombre }}
                         </button>
                     @endforeach
                 </div>
+
+                @if($select_categoria !== null || !empty($search))
+                    <div class="text-center mt-2">
+                        <button type="button"
+                            class="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-700 rounded-lg text-sm hover:bg-gray-300"
+                            wire:click="resetFilters">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            Limpiar filtros
+                        </button>
+                    </div>
+                @endif
             </div>
 
             <div class='sm:w-1/2 lg:w-1/3'>

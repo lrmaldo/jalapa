@@ -37,8 +37,8 @@
 
                 <!-- Hero Content -->
                 <main class="relative z-10">
-                    <!-- Carrusel Mejorado -->
-                    <div class="relative h-[70vh] overflow-hidden">
+                    <!-- Carrusel Mejorado -->ija y mejor manejo de imágenes -->
+                    <div class="relative h-[70vh] overflow-hidden">h-[600px] overflow-hidden">
                         <div id="carouselExampleCrossfade" class="carousel slide carousel-fade relative h-full" data-bs-ride="carousel">
                             <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-6 z-10">
                                 <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="0"
@@ -56,8 +56,9 @@
                                 <div class="carousel-item active float-left w-full h-full">
                                     <div class="absolute inset-0 bg-black/40 z-10"></div>
                                     <img src="{{asset('img/jaca_fondo.jfif')}}" class="block w-full h-full object-cover"
-                                    alt="Wild Landscape" />
+                                    alt="Wild Landscape" />l h-full object-cover object-center"
                                     <div class="absolute inset-0 flex items-center justify-center z-20">
+                                        <div class="text-center px-4 max-w-3xl mx-auto">fy-center z-20">
                                         <div class="text-center px-4 max-w-3xl mx-auto">
                                             <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white drop-shadow-lg">
                                                 <span class="block text-amber-400">RMS</span>
@@ -81,8 +82,9 @@
                                 @forelse ($carruseles as $key => $item)
                                 <div class="carousel-item float-left w-full h-full">
                                     <div class="absolute inset-0 bg-black/40 z-10"></div>
-                                    <img src="{{asset($item->imagen_url)}}" class="block w-full h-full object-cover"
-                                        alt="Img-{{$item->id}}" />
+                                    <img src="{{asset($item->imagen_url)}}" 
+                                         class="block w-full h-full object-cover object-center"
+                                         alt="Img-{{$item->id}}" />
                                     <div class="absolute inset-0 flex items-center justify-center z-20">
                                         <div class="text-center px-4">
                                             <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
@@ -216,6 +218,30 @@
         });
     </script>
 
-    @livewireScripts
-</body>
-</html>
+    @livewireScriptsyle>
+</body>        /* Asegura que el carrusel mantenga una altura consistente */
+
+
+</html>        .carousel-item {
+            transition: transform .6s ease-in-out;
+        }
+        
+        /* Previene cambios en el diseño durante las transiciones */
+        .carousel-inner {
+            transform-style: preserve-3d;
+        }
+        
+        /* Mejora del manejo de imágenes */
+        .carousel-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+
+
+
+
+
+
+</html></body>    </style>        }            object-position: center;            object-fit: cover;            min-width: 100%;
+            height: 100%;

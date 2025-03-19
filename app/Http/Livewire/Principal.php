@@ -9,8 +9,20 @@ use Livewire\Component;
 class Principal extends Component
 {
     public $search, $select_categoria = null, $sort = 'id', $direction = 'desc';
-    // Añadimos el listener para actualizar en tiempo real
-    protected $listeners = ['seleccionarCategoria', 'resetFilters'];
+
+    // No necesitamos los listeners ya que usamos wire:click directamente
+    // protected $listeners = ['seleccionarCategoria', 'resetFilters'];
+
+    // Agregamos los updatedX para asegurar actualizaciones
+    public function updatedSearch()
+    {
+        // Se ejecuta automáticamente cuando cambia la propiedad search
+    }
+
+    public function updatedSelectCategoria()
+    {
+        // Se ejecuta automáticamente cuando cambia la propiedad select_categoria
+    }
 
     public function mount(){
         //$this->tiendas = [] ;
@@ -45,11 +57,12 @@ class Principal extends Component
 
     public function seleccionarCategoria($cat)
     {
-        $this->select_categoria = $cat;
+        // Aseguramos que sea un entero
+        $this->select_categoria = (int) $cat;
     }
 
     public function resetFilters()
     {
-        $this->reset('select_categoria');
+        $this->reset(['select_categoria', 'search']);
     }
 }
