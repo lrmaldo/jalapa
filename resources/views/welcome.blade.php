@@ -75,16 +75,14 @@
                                 @endforeach
                             </div>
 
-                            <!-- Contenedor del carrusel mejorado -->
+                            <!-- Contenedor del carrusel restaurado con mejoras -->
                             <div class="carousel-inner relative w-full h-full overflow-hidden">
                                 <!-- Slide principal -->
-                                <div class="carousel-item active w-full h-full">
+                                <div class="carousel-item active float-left w-full h-full">
                                     <div class="absolute inset-0 bg-black/40 z-10"></div>
-                                    <div class="image-container absolute inset-0">
-                                        <img src="{{asset('img/jaca_fondo.jfif')}}"
-                                             class="w-full h-full object-cover"
-                                             alt="RMS Tecnología" />
-                                    </div>
+                                    <img src="{{asset('img/jaca_fondo.jfif')}}"
+                                         class="block w-full h-full object-cover object-center"
+                                         alt="RMS Tecnología" />
                                     <div class="absolute inset-0 flex items-center justify-center z-20">
                                         <div class="text-center px-4 max-w-3xl mx-auto">
                                             <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white drop-shadow-lg">
@@ -106,15 +104,13 @@
                                     </div>
                                 </div>
 
-                                <!-- Slides dinámicos mejorados -->
+                                <!-- Slides dinámicos restaurados -->
                                 @foreach($carruseles as $key => $item)
-                                    <div class="carousel-item w-full h-full">
+                                    <div class="carousel-item float-left w-full h-full">
                                         <div class="absolute inset-0 bg-black/40 z-10"></div>
-                                        <div class="image-container absolute inset-0">
-                                            <img src="{{asset($item->imagen_url)}}"
-                                                 class="w-full h-full object-cover"
-                                                 alt="Img-{{$item->id}}" />
-                                        </div>
+                                        <img src="{{asset($item->imagen_url)}}"
+                                             class="block w-full h-full object-cover object-center"
+                                             alt="Img-{{$item->id}}" />
                                         <div class="absolute inset-0 flex items-center justify-center z-20">
                                             <div class="text-center px-4">
                                                 <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
@@ -246,6 +242,18 @@
                 behavior: 'smooth'
             });
         });
+
+        // Asegurar que el carrusel se inicialice correctamente
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar que TW Elements esté cargado
+            if (typeof bootstrap !== 'undefined') {
+                // Inicializar manualmente el carrusel si es necesario
+                var myCarousel = new bootstrap.Carousel(document.getElementById('carouselExampleCrossfade'), {
+                    interval: 5000,
+                    wrap: true
+                });
+            }
+        });
     </script>
 
     @livewireScripts
@@ -305,6 +313,49 @@
             transform: translate3d(0, 0, 0);
             backface-visibility: hidden;
             perspective: 1000px;
+        }
+
+        /* Estilos compatibles con TW Elements para altura fija */
+        .carousel-item {
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .carousel-item.active,
+        .carousel-item-next,
+        .carousel-item-prev {
+            display: block;
+        }
+
+        /* Asegurar que todas las imágenes cubran completamente el contenedor */
+        .carousel-item img {
+            object-fit: cover;
+            object-position: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Efecto de fade entre diapositivas */
+        .carousel-fade .carousel-item {
+            opacity: 0;
+            transition-property: opacity;
+            transform: none;
+        }
+
+        .carousel-fade .carousel-item.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        /* Prevenir saltos de altura durante transiciones */
+        #carouselExampleCrossfade {
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
+        /* Asegurarse de que el contenedor principal tenga altura definida */
+        .carousel, .carousel-inner {
+            height: 100%;
         }
     </style>
 </body>
