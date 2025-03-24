@@ -4,27 +4,49 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RMS Tecnología y Comunicaciones | San Felipe Jalapa de Díaz</title>
 
-    <title>RMS</title>
+    <!-- SEO y Metadatos -->
+    <meta name="description" content="RMS ofrece soluciones tecnológicas innovadoras para San Felipe Jalapa de Díaz. Servicios de redes, soporte técnico y más.">
+    <meta name="keywords" content="RMS, tecnología, San Felipe Jalapa de Díaz, redes, comunicaciones, internet, soporte técnico">
+    <meta name="author" content="RMS Tecnología">
+    <meta name="robots" content="index, follow">
 
-    <!-- Fonts -->
-    <meta name="description" content="Sitio web Oficial RMS - San Felipe Jalapa de Díaz">
+    <!-- Open Graph / Facebook -->
     <meta property="og:url" content="{{url()->full()}}">
-    <meta property="og:title" content="RMS - San Felipe Jalapa de Díaz">
-    <meta property="og:type" content="article">
-    <meta property="og:description" content="Sitio web Oficial RMS - San Felipe Jalapa de Díaz">
-    <meta property="og:site_name" content="RMS">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="RMS Tecnología | Soluciones Innovadoras">
+    <meta property="og:description" content="Conectamos el futuro de San Felipe Jalapa de Díaz con tecnología de vanguardia">
     <meta property="og:image" content="{{ asset('img/logo.jfif') }}">
-    <meta name="site_name" content="RMS - San Felipe Jalapa de Díaz ">
+    <meta property="og:site_name" content="RMS Tecnología">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RMS Tecnología | Soluciones Innovadoras">
+    <meta name="twitter:description" content="Conectamos el futuro de San Felipe Jalapa de Díaz con tecnología de vanguardia">
+    <meta name="twitter:image" content="{{ asset('img/logo.jfif') }}">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/logo.jfif') }}">
+    <link rel="apple-touch-icon" href="{{ asset('img/logo.jfif') }}">
+
+    <!-- Precargar recursos críticos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Estilos -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
     <script src="{{ asset('js/frontend.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js" defer></script>
-    <link rel="icon" type="image/x-icon" href="{{ asset('img/logo.jfif') }}" />
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     @livewireStyles
 </head>
 

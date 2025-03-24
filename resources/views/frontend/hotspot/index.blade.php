@@ -9,12 +9,7 @@
 
     <!-- Fonts -->
     <meta name="description" content="test">
-    {{-- <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@tailwindawesome">
-<meta name="twitter:title" content="Tailwind Awesome">
-<meta name="twitter:description" content="A curated directory of the best Tailwind templates and UI kits to kickstart your next design.">
-<meta name="twitter:creator" content="@tailwindawesome">
-<meta name="twitter:image" content="{{asset('img/logo.jpg')}}"> --}}
+
     <meta property="og:url" content="{{ URL::to('/hotspot/preview/'.$zona->id) }}">
     <meta property="og:title" content="preview {{$zona->nombre}}">
     <meta property="og:type" content="article">
