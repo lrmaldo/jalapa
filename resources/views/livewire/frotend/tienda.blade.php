@@ -87,33 +87,42 @@
         <!-- Indicador de filtros activos -->
         @if($search || $select_categoria)
             <div class="mt-4 flex flex-wrap items-center gap-2">
-                <span class="text-sm font-medium text-gray-500">Filtros activos:</span>
+            <span class="text-sm font-medium text-gray-500">Filtros activos:</span>
 
-                @if($search)
-                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
-                        Búsqueda: "{{ $search }}"
-                        <button wire:click="$set('search', '')" class="ml-1 text-amber-600 hover:text-amber-800 focus:outline-none">
-                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </span>
-                @endif
-
-                @if($select_categoria)
-                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
-                        Categoría: {{ $categorias->firstWhere('id', $select_categoria)->nombre ?? '' }}
-                        <button wire:click="resetFilters" class="ml-1 text-amber-600 hover:text-amber-800 focus:outline-none">
-                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </span>
-                @endif
-
-                <button wire:click="resetAll" class="text-sm text-amber-600 hover:text-amber-800 ml-2 focus:outline-none">
-                    Limpiar todos
+            @if($search)
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800 transition-all duration-300 hover:bg-amber-200">
+                <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                Búsqueda: "{{ $search }}"
+                <button wire:click="$set('search', '')" class="ml-1 text-amber-600 hover:text-amber-800 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1 rounded-full" aria-label="Eliminar filtro de búsqueda">
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
                 </button>
+                </span>
+            @endif
+
+            @if($select_categoria)
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800 transition-all duration-300 hover:bg-amber-200">
+                <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                </svg>
+                Categoría: {{ $categorias->firstWhere('id', $select_categoria)->nombre ?? '' }}
+                <button wire:click="resetFilters" class="ml-1 text-amber-600 hover:text-amber-800 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1 rounded-full" aria-label="Eliminar filtro de categoría">
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                </span>
+            @endif
+
+            <button wire:click="resetAll" class="text-sm text-amber-600 hover:text-amber-800 ml-2 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1 rounded-md px-2 py-1 transition-all duration-200 hover:bg-amber-50 flex items-center" aria-label="Limpiar todos los filtros">
+                <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                Limpiar todos
+            </button>
             </div>
         @endif
     </div>
@@ -155,9 +164,13 @@
                                     src="{{ asset($producto->imagen_url) }}"
                                     alt="{{ $producto->nombre }}" />
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                     <a href="/t/{{ $producto->tienda_id }}/producto/{{$producto->id}}"
-                                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
+                                        class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 border border-amber-400 transform hover:scale-105 transition-all">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        </svg>
                                         Ver detalles
                                     </a>
                                 </div>
