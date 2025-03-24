@@ -59,7 +59,7 @@
 
                 <!-- Hero Content -->
                 <main class="relative z-10">
-                    <!-- Carrusel con TW Elements - Adaptado para altura fija -->
+                    <!-- Carrusel con altura fija mejorada -->
                     <div class="relative h-[500px] sm:h-[550px] md:h-[600px] overflow-hidden">
                         <!-- Carrusel -->
                         <div id="carouselExampleCrossfade" class="carousel slide carousel-fade relative h-full" data-bs-ride="carousel">
@@ -75,14 +75,16 @@
                                 @endforeach
                             </div>
 
-                            <!-- Contenedor del carrusel -->
+                            <!-- Contenedor del carrusel mejorado -->
                             <div class="carousel-inner relative w-full h-full overflow-hidden">
                                 <!-- Slide principal -->
-                                <div class="carousel-item active float-left w-full h-full">
+                                <div class="carousel-item active w-full h-full">
                                     <div class="absolute inset-0 bg-black/40 z-10"></div>
-                                    <img src="{{asset('img/jaca_fondo.jfif')}}"
-                                         class="block w-full h-full object-cover object-center"
-                                         alt="RMS Tecnología" />
+                                    <div class="image-container absolute inset-0">
+                                        <img src="{{asset('img/jaca_fondo.jfif')}}"
+                                             class="w-full h-full object-cover"
+                                             alt="RMS Tecnología" />
+                                    </div>
                                     <div class="absolute inset-0 flex items-center justify-center z-20">
                                         <div class="text-center px-4 max-w-3xl mx-auto">
                                             <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white drop-shadow-lg">
@@ -104,13 +106,15 @@
                                     </div>
                                 </div>
 
-                                <!-- Slides dinámicos -->
+                                <!-- Slides dinámicos mejorados -->
                                 @foreach($carruseles as $key => $item)
-                                    <div class="carousel-item float-left w-full h-full">
+                                    <div class="carousel-item w-full h-full">
                                         <div class="absolute inset-0 bg-black/40 z-10"></div>
-                                        <img src="{{asset($item->imagen_url)}}"
-                                             class="block w-full h-full object-cover object-center"
-                                             alt="Img-{{$item->id}}" />
+                                        <div class="image-container absolute inset-0">
+                                            <img src="{{asset($item->imagen_url)}}"
+                                                 class="w-full h-full object-cover"
+                                                 alt="Img-{{$item->id}}" />
+                                        </div>
                                         <div class="absolute inset-0 flex items-center justify-center z-20">
                                             <div class="text-center px-4">
                                                 <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
@@ -247,25 +251,41 @@
     @livewireScripts
 
     <style>
-        /* Asegura que el carrusel mantenga una altura consistente */
+        /* Estilos mejorados para el carrusel */
         .carousel-item {
-            transition: transform 0.6s ease-in-out;
             position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             opacity: 0;
-            display: block !important;
+            transition: opacity 0.6s ease-in-out;
+            visibility: hidden;
         }
 
         .carousel-item.active {
-            position: relative;
             opacity: 1;
+            position: relative;
+            visibility: visible;
         }
 
-        /* Mejora del manejo de imágenes */
+        /* Contenedor de imágenes para mantener relación de aspecto */
+        .image-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Asegurar que todas las imágenes cubran completamente el contenedor */
         .carousel-item img {
+            display: block;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             object-position: center;
-            height: 100%;
-            width: 100%;
         }
 
         /* Efecto de fade entre diapositivas */
@@ -278,6 +298,13 @@
         .carousel-fade .carousel-item.active {
             opacity: 1;
             z-index: 1;
+        }
+
+        /* Prevenir saltos de altura durante transiciones */
+        #carouselExampleCrossfade {
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            perspective: 1000px;
         }
     </style>
 </body>

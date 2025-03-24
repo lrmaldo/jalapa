@@ -16,12 +16,9 @@
                                     <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
                                     <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                                         href="/">Inicio</a>
+
                                     <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                                        href="/?type=template">Ventas</a>
-                                    <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                                        href="/?type=kit">Agenda</a>
-                                    <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                                        href="/?price=free">Blog</a>
+                                        href="/blog">Blog</a>
                                     @if (Route::has('login'))
 
                                         @auth
@@ -31,7 +28,7 @@
                                             <a href="{{ route('login') }}"
                                                 class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Login</a>
 
-                                          
+
                                         @endif
 
 
@@ -141,6 +138,6 @@
                                     @endif
 
                                 </div>
-                               
+
                             </div>
                         </nav>
