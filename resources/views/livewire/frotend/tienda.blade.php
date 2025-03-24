@@ -194,7 +194,7 @@
 
         <!-- Paginación mejorada -->
         <div class="mt-10">
-            {{ $productos->links('vendor.livewire.tailwind') }}
+            {{ $productos->links() }}
         </div>
     </div>
 </div>
