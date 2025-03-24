@@ -62,10 +62,26 @@
                 </div>
             </div>
 
-            <!-- Filtro por categorías -->
-            <div class="w-full md:w-auto flex-grow">
-                <div class="bg-white rounded-lg shadow-sm p-1 overflow-x-auto">
-                    <div class="flex space-x-1">
+            <!-- Menú desplegable de categorías (visible solo en móvil) -->
+            <div class="w-full md:hidden">
+                <label for="categoria-mobile" class="block text-sm font-medium text-gray-700">Seleccionar categoría</label>
+                <select id="categoria-mobile"
+                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:ring-amber-500 focus:border-amber-500 sm:text-sm rounded-md"
+                        wire:model="select_categoria">
+                    <option value="">Todas las categorías</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Filtro por categorías con scroll horizontal (visible en pantallas medianas y grandes) -->
+            <div class="w-full hidden md:block flex-grow relative">
+                <!-- Indicador de scroll a la izquierda -->
+                <div class="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+
+                <div class="bg-white rounded-lg shadow-sm p-1 overflow-x-auto scrollbar-thin scrollbar-thumb-amber-300 scrollbar-track-gray-100">
+                    <div class="flex space-x-1 min-w-max px-2">
                         <button wire:click="resetFilters"
                             class="flex-shrink-0 px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap transition-all duration-200 {{ $select_categoria == null ? 'bg-amber-500 text-white shadow-sm' : 'text-gray-700 hover:bg-amber-100' }}">
                             Todos
@@ -81,48 +97,44 @@
                         @endforelse
                     </div>
                 </div>
+
+                <!-- Indicador de scroll a la derecha -->
+                <div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
             </div>
         </div>
 
         <!-- Indicador de filtros activos -->
         @if($search || $select_categoria)
             <div class="mt-4 flex flex-wrap items-center gap-2">
-            <span class="text-sm font-medium text-gray-500">Filtros activos:</span>
+                <span class="text-sm font-medium text-gray-500">Filtros activos:</span>
 
-            @if($search)
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800 transition-all duration-300 hover:bg-amber-200">
-                <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                Búsqueda: "{{ $search }}"
-                <button wire:click="$set('search', '')" class="ml-1 text-amber-600 hover:text-amber-800 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1 rounded-full" aria-label="Eliminar filtro de búsqueda">
-                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                @if($search)
+                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
+                        Búsqueda: "{{ $search }}"
+                        <button wire:click="$set('search', '')" class="ml-1 text-amber-600 hover:text-amber-800 focus:outline-none">
+                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </span>
+                @endif
+
+                @if($select_categoria)
+                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
+                        Categoría: {{ $categorias->firstWhere('id', $select_categoria)->nombre ?? '' }}
+                        <button wire:click="resetFilters" class="ml-1 text-amber-600 hover:text-amber-800 focus:outline-none">
+                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </span>
+                @endif
+
+                <button
+                    wire:click="$set('search', ''); resetFilters()"
+                    class="text-sm text-amber-600 hover:text-amber-800 ml-2 focus:outline-none">
+                    Limpiar todos
                 </button>
-                </span>
-            @endif
-
-            @if($select_categoria)
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800 transition-all duration-300 hover:bg-amber-200">
-                <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                </svg>
-                Categoría: {{ $categorias->firstWhere('id', $select_categoria)->nombre ?? '' }}
-                <button wire:click="resetFilters" class="ml-1 text-amber-600 hover:text-amber-800 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1 rounded-full" aria-label="Eliminar filtro de categoría">
-                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-                </span>
-            @endif
-
-            <button wire:click="resetAll" class="text-sm text-amber-600 hover:text-amber-800 ml-2 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1 rounded-md px-2 py-1 transition-all duration-200 hover:bg-amber-50 flex items-center" aria-label="Limpiar todos los filtros">
-                <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
-                Limpiar todos
-            </button>
             </div>
         @endif
     </div>
@@ -150,7 +162,9 @@
                     <h3 class="mt-2 text-lg font-medium text-gray-900">No se encontraron productos</h3>
                     <p class="mt-1 text-sm text-gray-500">Intente con otros términos de búsqueda o filtros.</p>
                     <div class="mt-6">
-                        <button wire:click="resetAll" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
+                        <button
+                            wire:click="$set('search', ''); resetFilters()"
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
                             Ver todos los productos
                         </button>
                     </div>
@@ -211,3 +225,63 @@
         </div>
     </div>
 </div>
+
+<style>
+    /* Estilos para la barra de desplazamiento personalizada */
+    .scrollbar-thin::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+        background: #fdba74;
+        border-radius: 10px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+        background: #f97316;
+    }
+
+    /* Para Firefox */
+    .scrollbar-thin {
+        scrollbar-width: thin;
+        scrollbar-color: #fdba74 #f1f1f1;
+    }
+</style>
+
+<script>
+    // Script para detectar cuando el scroll ha llegado al final o al inicio
+    document.addEventListener('DOMContentLoaded', function() {
+        const scrollContainer = document.querySelector('.scrollbar-thin');
+        const leftGradient = document.querySelector('.bg-gradient-to-r');
+        const rightGradient = document.querySelector('.bg-gradient-to-l');
+
+        if (scrollContainer && leftGradient && rightGradient) {
+            // Inicialización
+            checkScroll();
+
+            // Comprobar durante el scroll
+            scrollContainer.addEventListener('scroll', checkScroll);
+
+            function checkScroll() {
+                // El scroll está al principio
+                if (scrollContainer.scrollLeft <= 10) {
+                    leftGradient.classList.add('opacity-0');
+                } else {
+                    leftGradient.classList.remove('opacity-0');
+                }
+
+                // El scroll está al final
+                if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 10) {
+                    rightGradient.classList.add('opacity-0');
+                } else {
+                    rightGradient.classList.remove('opacity-0');
+                }
+            }
+        }
+    });
+</script>

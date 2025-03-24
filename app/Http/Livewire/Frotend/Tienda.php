@@ -25,7 +25,7 @@ class Tienda extends Component
         $productos = Producto::where('tienda_id',$this->id_tienda)
         ->where('is_active',1)
         ->where(function($query)  use ($buscar, $catSelect){
-            
+
             $query->orWhere('nombre','LIKE',"%{$buscar}%");
             $query->orWhere('descripcion','LIKE',"%{$buscar}%");
 
@@ -33,10 +33,10 @@ class Tienda extends Component
                #dd($this->select_categoria);
                #dd($catSelect);
                $query->where('categoria_id',$catSelect);
-              
+
             }
         })
-        
+
        /*  ->orWhere('categoria_id',$this->select_categoria) */
         ->orderBy($this->sort,$this->direction)
         ->paginate(15);
@@ -51,5 +51,15 @@ class Tienda extends Component
 
     public function resetFilters(){
         $this->reset('select_categoria');
+    }
+
+    /**
+     * Reiniciar todos los filtros y la búsqueda
+     */
+    public function resetAll()
+    {
+        $this->search = '';
+        $this->select_categoria = null;
+        $this->resetPage();
     }
 }
