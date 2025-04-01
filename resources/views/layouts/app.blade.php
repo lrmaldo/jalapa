@@ -23,7 +23,7 @@
     <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="{{ asset('js/lenguaje-datatables.js') }}"></script>
     {{-- toast notificacion --}}
-    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0- 
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-
     alpha/css/bootstrap.css" rel="stylesheet"> --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     {{-- fin de estilos de notificacion --}}
@@ -56,15 +56,15 @@
     <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}">
 
     {{-- toastr --}}
-    <link rel="stylesheet" type="text/css" 
+    <link rel="stylesheet" type="text/css"
      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-	
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 </head>
 
-<body class="font-sans antialiased" onload="mapa.initMap()">
+<body class="font-sans antialiased" >
     <x-jet-banner />
 
     <div class="min-h-screen bg-gray-100">

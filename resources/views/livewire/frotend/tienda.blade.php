@@ -1,4 +1,4 @@
-<div>
+<div class="tienda-component">
     <div class="bg-gradient-to-b from-amber-50 to-white py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -62,14 +62,14 @@
                 </div>
             </div>
 
-            <!-- Categorías - Sección mejorada para responsividad -->
+            <!-- Categorías - Sección simplificada para resolver problemas -->
             <div class="w-full">
                 <h3 class="text-sm font-medium text-gray-700 mb-2">Categorías:</h3>
 
-                <!-- Versión móvil (desplegable) - visible en pantallas extra pequeñas -->
-                <div class="sm:hidden">
+                <!-- Versión móvil (desplegable) - visible en pantallas pequeñas -->
+                <div class="block sm:hidden">
                     <select
-                        class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:ring-amber-500 focus:border-amber-500 text-sm rounded-md bg-white shadow-sm"
+                        class="w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:ring-amber-500 focus:border-amber-500 text-sm rounded-md bg-white shadow-sm"
                         wire:model="select_categoria">
                         <option value="">Todas las categorías</option>
                         @foreach($categorias as $categoria)
@@ -78,49 +78,26 @@
                     </select>
                 </div>
 
-                <!-- Versión tablet (grid compacto) - visible solo en pantallas pequeñas y medianas -->
-                <div class="hidden sm:grid md:hidden grid-cols-2 gap-2">
-                    <button wire:click="resetFilters"
-                        class="px-3 py-2 text-sm font-medium rounded-md text-center transition-all duration-200 {{ $select_categoria == null ? 'bg-amber-500 text-white shadow-sm' : 'bg-white text-gray-700 hover:bg-amber-100 border border-gray-200' }}">
-                        Todos
-                    </button>
-
-                    @foreach($categorias as $categoria)
-                        <button wire:click="seleccionarCategoria({{ $categoria->id }})"
-                            class="px-3 py-2 text-sm font-medium rounded-md text-center transition-all duration-200 {{ $select_categoria == $categoria->id ? 'bg-amber-500 text-white shadow-sm' : 'bg-white text-gray-700 hover:bg-amber-100 border border-gray-200' }}">
-                            {{ $categoria->nombre }}
+                <!-- Versión de escritorio simplificada -->
+                <div class="hidden sm:block">
+                    <div class="flex flex-wrap gap-2">
+                        <button wire:click="resetFilters"
+                            class="px-4 py-2 text-sm font-medium rounded-md text-center {{ $select_categoria == null ? 'bg-amber-500 text-white shadow-sm' : 'bg-white text-gray-700 hover:bg-amber-100 border border-gray-200' }}">
+                            Todos
                         </button>
-                    @endforeach
-                </div>
 
-                <!-- Versión escritorio (scroll horizontal con indicadores) - visible en pantallas grandes -->
-                <div class="hidden md:block relative">
-                    <!-- Indicador izquierdo -->
-                    <div id="leftIndicator" class="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none opacity-0 transition-opacity duration-300"></div>
-
-                    <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-x-auto category-scroll">
-                        <div class="flex p-1 min-w-max">
-                            <button wire:click="resetFilters"
-                                class="flex-shrink-0 px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap transition-all duration-200 mr-1 {{ $select_categoria == null ? 'bg-amber-500 text-white shadow-sm' : 'text-gray-700 hover:bg-amber-100' }}">
-                                Todos
+                        @foreach($categorias as $categoria)
+                            <button wire:click="seleccionarCategoria({{ $categoria->id }})"
+                                class="px-4 py-2 text-sm font-medium rounded-md text-center {{ $select_categoria == $categoria->id ? 'bg-amber-500 text-white shadow-sm' : 'bg-white text-gray-700 hover:bg-amber-100 border border-gray-200' }}">
+                                {{ $categoria->nombre }}
                             </button>
-
-                            @foreach($categorias as $categoria)
-                                <button wire:click="seleccionarCategoria({{ $categoria->id }})"
-                                    class="flex-shrink-0 px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap transition-all duration-200 mr-1 {{ $select_categoria == $categoria->id ? 'bg-amber-500 text-white shadow-sm' : 'text-gray-700 hover:bg-amber-100' }}">
-                                    {{ $categoria->nombre }}
-                                </button>
-                            @endforeach
-                        </div>
+                        @endforeach
                     </div>
-
-                    <!-- Indicador derecho -->
-                    <div id="rightIndicator" class="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none opacity-100 transition-opacity duration-300"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Indicador de filtros activos - Ajustado para mejor presentación -->
+        <!-- Indicador de filtros activos -->
         @if($search || $select_categoria)
             <div class="mt-6 flex flex-wrap items-center gap-2">
                 <span class="text-sm font-medium text-gray-500">Filtros activos:</span>
@@ -250,128 +227,28 @@
             {{ $productos->links() }}
         </div>
     </div>
+
+    <style>
+        /* Estilos básicos necesarios, eliminados los que podrían causar conflictos */
+        .category-scroll::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .category-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .category-scroll::-webkit-scrollbar-thumb {
+            background: #fdba74;
+            border-radius: 10px;
+        }
+    </style>
+
+    <!-- Script simplificado para evitar errores -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Código JavaScript aquí si es necesario
+        });
+    </script>
 </div>
-
-<style>
-    /* Estilos para la barra de desplazamiento personalizada */
-    .scrollbar-thin::-webkit-scrollbar {
-        height: 6px;
-    }
-
-    .scrollbar-thin::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-    }
-
-    .scrollbar-thin::-webkit-scrollbar-thumb {
-        background: #fdba74;
-        border-radius: 10px;
-    }
-
-    .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-        background: #f97316;
-    }
-
-    /* Para Firefox */
-    .scrollbar-thin {
-        scrollbar-width: thin;
-        scrollbar-color: #fdba74 #f1f1f1;
-    }
-
-    /* Estilos para la barra de desplazamiento personalizada */
-    .category-scroll {
-        scrollbar-width: thin;
-        scrollbar-color: #fdba74 #f1f1f1;
-    }
-
-    .category-scroll::-webkit-scrollbar {
-        height: 5px;
-    }
-
-    .category-scroll::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-    }
-
-    .category-scroll::-webkit-scrollbar-thumb {
-        background: #fdba74;
-        border-radius: 10px;
-    }
-
-    .category-scroll::-webkit-scrollbar-thumb:hover {
-        background: #f97316;
-    }
-</style>
-
-<script>
-    // Script para detectar cuando el scroll ha llegado al final o al inicio
-    document.addEventListener('DOMContentLoaded', function() {
-        const scrollContainer = document.querySelector('.scrollbar-thin');
-        const leftGradient = document.querySelector('.bg-gradient-to-r');
-        const rightGradient = document.querySelector('.bg-gradient-to-l');
-
-        if (scrollContainer && leftGradient && rightGradient) {
-            // Inicialización
-            checkScroll();
-
-            // Comprobar durante el scroll
-            scrollContainer.addEventListener('scroll', checkScroll);
-
-            function checkScroll() {
-                // El scroll está al principio
-                if (scrollContainer.scrollLeft <= 10) {
-                    leftGradient.classList.add('opacity-0');
-                } else {
-                    leftGradient.classList.remove('opacity-0');
-                }
-
-                // El scroll está al final
-                if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 10) {
-                    rightGradient.classList.add('opacity-0');
-                } else {
-                    rightGradient.classList.remove('opacity-0');
-                }
-            }
-        }
-    });
-
-    // Script para gestionar los indicadores de scroll horizontal
-    document.addEventListener('DOMContentLoaded', function() {
-        const scrollContainer = document.querySelector('.category-scroll');
-        const leftIndicator = document.getElementById('leftIndicator');
-        const rightIndicator = document.getElementById('rightIndicator');
-
-        if (scrollContainer && leftIndicator && rightIndicator) {
-            // Comprobación inicial
-            checkScroll();
-
-            // Comprobar durante el scroll
-            scrollContainer.addEventListener('scroll', checkScroll);
-
-            // También comprobar en el evento resize
-            window.addEventListener('resize', checkScroll);
-
-            function checkScroll() {
-                // Comprobar si hay suficiente contenido para hacer scroll
-                if (scrollContainer.scrollWidth <= scrollContainer.clientWidth) {
-                    leftIndicator.classList.add('opacity-0');
-                    rightIndicator.classList.add('opacity-0');
-                    return;
-                }
-
-                // Comprobar posición de scroll
-                if (scrollContainer.scrollLeft <= 5) {
-                    leftIndicator.classList.add('opacity-0');
-                } else {
-                    leftIndicator.classList.remove('opacity-0');
-                }
-
-                if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 5) {
-                    rightIndicator.classList.add('opacity-0');
-                } else {
-                    rightIndicator.classList.remove('opacity-0');
-                }
-            }
-        }
-    });
-</script>
