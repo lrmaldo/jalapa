@@ -44,12 +44,12 @@
 
     <!-- Filtros y ordenación -->
     <div class="max-w-7xl px-4 pt-12 mx-auto lg:max-w-screen-xl sm:pt-10 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row flex-wrap items-center justify-between gap-6">
-            <!-- Ordenación -->
-            <div class="w-full md:w-auto">
-                <div class="flex flex-col sm:flex-row sm:items-center gap-2">
-                    <label for="orderby" class="text-sm font-medium text-gray-700">Ordenar por:</label>
-                    <div class="relative">
+        <div class="flex flex-col space-y-6">
+            <!-- Ordenación - Siempre visible pero adaptado a diferentes pantallas -->
+            <div class="w-full">
+                <div class="flex flex-wrap items-center gap-4">
+                    <label for="orderby" class="text-sm font-medium text-gray-700 whitespace-nowrap">Ordenar por:</label>
+                    <div class="relative flex-grow max-w-xs">
                         <select id="orderby"
                             class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-amber-500 focus:border-amber-500 sm:text-sm rounded-md"
                             wire:model='direction'>
@@ -62,55 +62,75 @@
                 </div>
             </div>
 
-            <!-- Menú desplegable de categorías (visible solo en móvil) -->
-            <div class="w-full md:hidden">
-                <label for="categoria-mobile" class="block text-sm font-medium text-gray-700">Seleccionar categoría</label>
-                <select id="categoria-mobile"
-                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:ring-amber-500 focus:border-amber-500 sm:text-sm rounded-md"
+            <!-- Categorías - Sección mejorada para responsividad -->
+            <div class="w-full">
+                <h3 class="text-sm font-medium text-gray-700 mb-2">Categorías:</h3>
+
+                <!-- Versión móvil (desplegable) - visible en pantallas extra pequeñas -->
+                <div class="sm:hidden">
+                    <select
+                        class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:ring-amber-500 focus:border-amber-500 text-sm rounded-md bg-white shadow-sm"
                         wire:model="select_categoria">
-                    <option value="">Todas las categorías</option>
-                    @foreach($categorias as $categoria)
-                        <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <!-- Filtro por categorías con scroll horizontal (visible en pantallas medianas y grandes) -->
-            <div class="w-full hidden md:block flex-grow relative">
-                <!-- Indicador de scroll a la izquierda -->
-                <div class="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-
-                <div class="bg-white rounded-lg shadow-sm p-1 overflow-x-auto scrollbar-thin scrollbar-thumb-amber-300 scrollbar-track-gray-100">
-                    <div class="flex space-x-1 min-w-max px-2">
-                        <button wire:click="resetFilters"
-                            class="flex-shrink-0 px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap transition-all duration-200 {{ $select_categoria == null ? 'bg-amber-500 text-white shadow-sm' : 'text-gray-700 hover:bg-amber-100' }}">
-                            Todos
-                        </button>
-
-                        @forelse($categorias as $categoria)
-                            <button wire:click="seleccionarCategoria({{ $categoria->id }})"
-                                class="flex-shrink-0 px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap transition-all duration-200 {{ $select_categoria == $categoria->id ? 'bg-amber-500 text-white shadow-sm' : 'text-gray-700 hover:bg-amber-100' }}">
-                                {{ $categoria->nombre }}
-                            </button>
-                        @empty
-                            <span class="px-4 py-2 text-sm text-gray-500 italic">No hay categorías disponibles</span>
-                        @endforelse
-                    </div>
+                        <option value="">Todas las categorías</option>
+                        @foreach($categorias as $categoria)
+                            <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
-                <!-- Indicador de scroll a la derecha -->
-                <div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+                <!-- Versión tablet (grid compacto) - visible solo en pantallas pequeñas y medianas -->
+                <div class="hidden sm:grid md:hidden grid-cols-2 gap-2">
+                    <button wire:click="resetFilters"
+                        class="px-3 py-2 text-sm font-medium rounded-md text-center transition-all duration-200 {{ $select_categoria == null ? 'bg-amber-500 text-white shadow-sm' : 'bg-white text-gray-700 hover:bg-amber-100 border border-gray-200' }}">
+                        Todos
+                    </button>
+
+                    @foreach($categorias as $categoria)
+                        <button wire:click="seleccionarCategoria({{ $categoria->id }})"
+                            class="px-3 py-2 text-sm font-medium rounded-md text-center transition-all duration-200 {{ $select_categoria == $categoria->id ? 'bg-amber-500 text-white shadow-sm' : 'bg-white text-gray-700 hover:bg-amber-100 border border-gray-200' }}">
+                            {{ $categoria->nombre }}
+                        </button>
+                    @endforeach
+                </div>
+
+                <!-- Versión escritorio (scroll horizontal con indicadores) - visible en pantallas grandes -->
+                <div class="hidden md:block relative">
+                    <!-- Indicador izquierdo -->
+                    <div id="leftIndicator" class="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none opacity-0 transition-opacity duration-300"></div>
+
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-x-auto category-scroll">
+                        <div class="flex p-1 min-w-max">
+                            <button wire:click="resetFilters"
+                                class="flex-shrink-0 px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap transition-all duration-200 mr-1 {{ $select_categoria == null ? 'bg-amber-500 text-white shadow-sm' : 'text-gray-700 hover:bg-amber-100' }}">
+                                Todos
+                            </button>
+
+                            @foreach($categorias as $categoria)
+                                <button wire:click="seleccionarCategoria({{ $categoria->id }})"
+                                    class="flex-shrink-0 px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap transition-all duration-200 mr-1 {{ $select_categoria == $categoria->id ? 'bg-amber-500 text-white shadow-sm' : 'text-gray-700 hover:bg-amber-100' }}">
+                                    {{ $categoria->nombre }}
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <!-- Indicador derecho -->
+                    <div id="rightIndicator" class="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none opacity-100 transition-opacity duration-300"></div>
+                </div>
             </div>
         </div>
 
-        <!-- Indicador de filtros activos -->
+        <!-- Indicador de filtros activos - Ajustado para mejor presentación -->
         @if($search || $select_categoria)
-            <div class="mt-4 flex flex-wrap items-center gap-2">
+            <div class="mt-6 flex flex-wrap items-center gap-2">
                 <span class="text-sm font-medium text-gray-500">Filtros activos:</span>
 
                 @if($search)
-                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
-                        Búsqueda: "{{ $search }}"
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
+                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        "{{ $search }}"
                         <button wire:click="$set('search', '')" class="ml-1 text-amber-600 hover:text-amber-800 focus:outline-none">
                             <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -120,8 +140,11 @@
                 @endif
 
                 @if($select_categoria)
-                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
-                        Categoría: {{ $categorias->firstWhere('id', $select_categoria)->nombre ?? '' }}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
+                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                        </svg>
+                        {{ $categorias->firstWhere('id', $select_categoria)->nombre ?? '' }}
                         <button wire:click="resetFilters" class="ml-1 text-amber-600 hover:text-amber-800 focus:outline-none">
                             <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -132,7 +155,10 @@
 
                 <button
                     wire:click="$set('search', ''); resetFilters()"
-                    class="text-sm text-amber-600 hover:text-amber-800 ml-2 focus:outline-none">
+                    class="text-sm text-amber-600 hover:text-amber-800 ml-2 focus:outline-none inline-flex items-center">
+                    <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
                     Limpiar todos
                 </button>
             </div>
@@ -251,6 +277,30 @@
         scrollbar-width: thin;
         scrollbar-color: #fdba74 #f1f1f1;
     }
+
+    /* Estilos para la barra de desplazamiento personalizada */
+    .category-scroll {
+        scrollbar-width: thin;
+        scrollbar-color: #fdba74 #f1f1f1;
+    }
+
+    .category-scroll::-webkit-scrollbar {
+        height: 5px;
+    }
+
+    .category-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .category-scroll::-webkit-scrollbar-thumb {
+        background: #fdba74;
+        border-radius: 10px;
+    }
+
+    .category-scroll::-webkit-scrollbar-thumb:hover {
+        background: #f97316;
+    }
 </style>
 
 <script>
@@ -280,6 +330,46 @@
                     rightGradient.classList.add('opacity-0');
                 } else {
                     rightGradient.classList.remove('opacity-0');
+                }
+            }
+        }
+    });
+
+    // Script para gestionar los indicadores de scroll horizontal
+    document.addEventListener('DOMContentLoaded', function() {
+        const scrollContainer = document.querySelector('.category-scroll');
+        const leftIndicator = document.getElementById('leftIndicator');
+        const rightIndicator = document.getElementById('rightIndicator');
+
+        if (scrollContainer && leftIndicator && rightIndicator) {
+            // Comprobación inicial
+            checkScroll();
+
+            // Comprobar durante el scroll
+            scrollContainer.addEventListener('scroll', checkScroll);
+
+            // También comprobar en el evento resize
+            window.addEventListener('resize', checkScroll);
+
+            function checkScroll() {
+                // Comprobar si hay suficiente contenido para hacer scroll
+                if (scrollContainer.scrollWidth <= scrollContainer.clientWidth) {
+                    leftIndicator.classList.add('opacity-0');
+                    rightIndicator.classList.add('opacity-0');
+                    return;
+                }
+
+                // Comprobar posición de scroll
+                if (scrollContainer.scrollLeft <= 5) {
+                    leftIndicator.classList.add('opacity-0');
+                } else {
+                    leftIndicator.classList.remove('opacity-0');
+                }
+
+                if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 5) {
+                    rightIndicator.classList.add('opacity-0');
+                } else {
+                    rightIndicator.classList.remove('opacity-0');
                 }
             }
         }
