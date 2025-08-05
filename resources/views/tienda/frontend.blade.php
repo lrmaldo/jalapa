@@ -47,109 +47,8 @@
 </head>
 
 <body class="antialiased" >
-    <style>
-        .map-responsive {
-            overflow: hidden;
-            padding-bottom: 36.25%;
-            position: relative;
-            height: 0;
-        }
-
-        @media screen and (max-width: 600px) {
-            .map-responsive {
-                overflow: hidden;
-                padding-bottom: 66.25%;
-                position: relative;
-                height: 0;
-            }
-        }
-    </style>
-
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-   {{--  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeDuXh_a0n8E4JFkPx9-XOs4643Awj3Go&callback=initMap&v=weekly"></script> --}}
-
-    {{-- <script>
-        var latitude2 = {!! json_encode($tienda->latitude) !!};
-        var longitude2 = {!! json_encode($tienda->longitude) !!};
-
-        var  maps = {
-            map: false,
-            marker: false,
-            initMap: function() {
-                // Creamos un objeto mapa y especificamos el elemento DOM donde se va a mostrar. 18.0709008,-96.5349083
-                maps.map = new google.maps.Map(document.getElementById('mapa'), {
-                    center: {
-                        lat: 18.0709008,
-                        lng: -96.5349083
-                    },
-                    scrollwheel: false,
-                    zoom: 15,
-                    zoomControl: true,
-                    rotateControl: false,
-                    mapTypeControl: true,
-                    streetViewControl: false,
-                });
-                // Creamos el marcador
-                maps.marker = new google.maps.Marker({
-                    position: {
-                        lat: latitude2 ? parseFloat(latitude2) : 18.0709008,
-                        lng: longitude2 ? parseFloat(longitude2) : -96.5349083
-                    },
-
-                    draggable: true
-                });
-                // Le asignamos el mapa a los marcadores.
-                maps.marker.setMap(maps.map);
-                maps.marker.addListener('dragend', function(event) {
-                    //escribimos las coordenadas de la posicion actual del marcador dentro del input #coords
-                   // document.getElementById("lat").value = this.getPosition().lat();
-                    //document.getElementById("long").value = this.getPosition().lng();
-                });
-            },
-            // función que se ejecuta al pulsar el botón buscar dirección
-
-        }
-
-        let initMap = ()=>{
-
-                // Creamos un objeto mapa y especificamos el elemento DOM donde se va a mostrar. 18.0709008,-96.5349083
-                maps.map = new google.maps.Map(document.getElementById('mapa'), {
-                    center: {
-                        lat: 18.0709008,
-                        lng: -96.5349083
-                    },
-                    scrollwheel: false,
-                    zoom: 15,
-                    zoomControl: true,
-                    rotateControl: false,
-                    mapTypeControl: true,
-                    streetViewControl: false,
-                });
-                // Creamos el marcador
-                maps.marker = new google.maps.Marker({
-                    position: {
-                        lat: latitude2 ? parseFloat(latitude2) : 18.0709008,
-                        lng: longitude2 ? parseFloat(longitude2) : -96.5349083
-                    },
-
-                    draggable: true
-                });
-                // Le asignamos el mapa a los marcadores.
-                maps.marker.setMap(maps.map);
-                maps.marker.addListener('dragend', function(event) {
-                    //escribimos las coordenadas de la posicion actual del marcador dentro del input #coords
-                   // document.getElementById("lat").value = this.getPosition().lat();
-                    //document.getElementById("long").value = this.getPosition().lng();
-                });
-
-        }
-
-        window.onload = function() {
-            initMap();
-        };
 
 
-    </script> --}}
 
 
 
@@ -162,46 +61,7 @@
                 @include('nav')
 
                         <main class="px-4 mx-auto mt-10 max-w-7xl sm:mt-14">
-                            {{-- carrusel --}}
-                            {{--  <div id="carouselExampleCrossfade" class="carousel slide carousel-fade relative"
-                                data-bs-ride="carousel">
-                                <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
-                                    <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="0"
-                                        class="active" aria-current="true" aria-label="Slide 1"></button>
-                                    <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="1"
-                                        aria-label="Slide 2"></button>
-                                    <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="2"
-                                        aria-label="Slide 3"></button>
-                                </div>
-                                <div class="carousel-inner relative w-full overflow-hidden">
-                                    <div class="carousel-item active float-left w-full">
-                                        <img src="{{asset('img/jaca_fondo.jfif')}}" class="block w-full"
-                                            alt="Wild Landscape" />
-                                    </div>
-                                    <div class="carousel-item float-left w-full">
-                                        <img src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp" class="block w-full"
-                                            alt="Camera" />
-                                    </div>
-                                    <div class="carousel-item float-left w-full">
-                                        <img src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp" class="block w-full"
-                                            alt="Exotic Fruits" />
-                                    </div>
-                                </div>
-                                <button
-                                    class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
-                                    type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon inline-block bg-no-repeat"
-                                        aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button
-                                    class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
-                                    type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon inline-block bg-no-repeat"
-                                        aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div> --}}
+
 
                             <div class="text-center">
                                 <div class=" mx-auto w-80 max-h-50">

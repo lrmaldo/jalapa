@@ -51,6 +51,7 @@ class TiendaController extends Controller
      */
     public function store(StoreTiendaRequest $request)
     {
+        $url_img = null;
 
         if ($request->hasFile('logo_url')) {
             $img = $request->file('logo_url');
@@ -58,12 +59,11 @@ class TiendaController extends Controller
             /* comprimir imagen */
             $img = Image::make($img->getRealPath());
             $img->orientate();
-            $img->encode('jpg',75);
+            $img->encode('jpg', 75);
             $nombre_imagen = 'logo_' . Uuid::uuid4() . '.jpg';
 
-
-            $file = Storage::put('public/images/' . $nombre_imagen, $img, 'public');
-
+            Storage::put('public/images/' . $nombre_imagen, $img, 'public');
+            $url_img = '/storage/images/' . $nombre_imagen;
         }
 
         $tienda = Tienda::create([
@@ -71,7 +71,7 @@ class TiendaController extends Controller
             'direccion' => $request->direccion,
             /* 'latitude'=> $request->lat,
             'longitude' =>$request->long, */
-            'logo_url'=> $request->hasFile('logo_url') ?Storage::url($file) : null,
+            'logo_url'=> $url_img,
             'facebook_url'=>$request->facebook_url,
             'tipo_tienda'=>$request->tipo_tienda,
             'categoria_id' =>$request->categoria_id,
